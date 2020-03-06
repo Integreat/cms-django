@@ -15,8 +15,4 @@ class DocumentForm(CustomModelForm):
 
         #: The model of this :class:`django.forms.ModelForm`
         model = Document
-        #: The fields of the model which should be handled by this form
-        fields = (
-            "description",
-            "document",
-        )
+        fields = ()
