@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-10 13:25+0000\n"
+"POT-Creation-Date: 2021-04-11 16:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -227,12 +227,12 @@ msgstr "Einmalig stattfindende Veranstaltungen"
 msgid "Active"
 msgstr "Aktiv"
 
-#: constants/region_status.py:17 models/regions/region.py:369
+#: constants/region_status.py:17 models/regions/region.py:415
 msgid "Hidden"
 msgstr "Versteckt"
 
 #: constants/region_status.py:18 models/pages/page.py:190
-#: models/pages/page_translation.py:256 models/regions/region.py:372
+#: models/pages/page_translation.py:256 models/regions/region.py:418
 #: templates/pages/page_form.html:152
 #: templates/pages/page_tree_archived_node.html:13
 msgid "Archived"
@@ -574,27 +574,27 @@ msgid "value"
 msgstr "Wert"
 
 #: models/config/configuration.py:19 models/events/event_translation.py:75
-#: models/feedback/feedback.py:58 models/languages/language.py:56
+#: models/feedback/feedback.py:58 models/languages/language.py:75
 #: models/languages/language_tree_node.py:51 models/offers/offer.py:34
 #: models/offers/offer_template.py:56 models/pages/abstract_base_page.py:19
 #: models/pages/abstract_base_page_translation.py:46
 #: models/pois/poi_translation.py:71
 #: models/push_notifications/push_notification.py:42
 #: models/push_notifications/push_notification_translation.py:38
-#: models/regions/region.py:109 models/users/organization.py:28
+#: models/regions/region.py:155 models/users/organization.py:28
 #: models/users/user_mfa.py:37
 msgid "creation date"
 msgstr "Erstellungsdatum"
 
 #: models/config/configuration.py:23 models/events/event_translation.py:79
-#: models/languages/language.py:60 models/languages/language_tree_node.py:55
+#: models/languages/language.py:79 models/languages/language_tree_node.py:55
 #: models/offers/offer.py:37 models/offers/offer_template.py:60
 #: models/pages/abstract_base_page.py:22
 #: models/pages/abstract_base_page_translation.py:50
 #: models/pois/poi_translation.py:75
 #: models/push_notifications/push_notification.py:46
 #: models/push_notifications/push_notification_translation.py:42
-#: models/regions/region.py:113 models/users/organization.py:32
+#: models/regions/region.py:159 models/users/organization.py:32
 msgid "modification date"
 msgstr "Änderungsdatum"
 
@@ -610,7 +610,7 @@ msgstr "Einstellungen"
 #: models/languages/language_tree_node.py:37 models/offers/offer.py:24
 #: models/pages/imprint_page.py:21 models/pages/page.py:43
 #: models/pois/poi.py:18 models/push_notifications/push_notification.py:18
-#: models/regions/region.py:388
+#: models/regions/region.py:434
 msgid "region"
 msgstr "Region"
 
@@ -656,7 +656,7 @@ msgid "events"
 msgstr "Veranstaltungen"
 
 #: models/events/event_translation.py:29 models/pois/poi_translation.py:24
-#: models/regions/region.py:42
+#: models/regions/region.py:88
 msgid "URL parameter"
 msgstr "URL-Parameter"
 
@@ -679,7 +679,7 @@ msgstr ""
 
 #: models/events/event_translation.py:41
 #: models/pages/abstract_base_page_translation.py:27
-#: models/pois/poi_translation.py:42 models/regions/region.py:53
+#: models/pois/poi_translation.py:42 models/regions/region.py:99
 msgid "status"
 msgstr "Status"
 
@@ -688,12 +688,12 @@ msgstr "Status"
 msgid "title"
 msgstr "Titel"
 
-#: models/events/event_translation.py:44 models/media/document.py:11
+#: models/events/event_translation.py:44 models/media/document.py:43
 msgid "description"
 msgstr "Beschreibung"
 
 #: models/events/event_translation.py:49 models/feedback/feedback.py:28
-#: models/languages/language.py:106 models/languages/language_tree_node.py:23
+#: models/languages/language.py:125 models/languages/language_tree_node.py:23
 #: models/pages/imprint_page_translation.py:32
 #: models/pages/page_translation.py:47 models/pois/poi_translation.py:52
 #: models/push_notifications/push_notification_translation.py:28
@@ -939,24 +939,24 @@ msgstr "Suchergebnisse für {}"
 msgid "search result feedback"
 msgstr "Suchergebnis-Feedback"
 
-#: models/languages/language.py:20
+#: models/languages/language.py:39
 msgid "Language Slug"
 msgstr "Sprach-Slug"
 
-#: models/languages/language.py:22
+#: models/languages/language.py:41
 msgid ""
 "Unique string identifier used in URLs without spaces and special characters."
 msgstr "Eindeutiger Bezeichner für URLs, ohne Leerzeichen und Sonderzeichen."
 
-#: models/languages/language.py:33 templates/languages/language_list.html:28
+#: models/languages/language.py:52 templates/languages/language_list.html:28
 msgid "BCP47 Tag"
 msgstr "BCP47 Tag"
 
-#: models/languages/language.py:35
+#: models/languages/language.py:54
 msgid "Language identifier without spaces and special characters."
 msgstr "Sprachenbezeichner ohne Leerzeichen und Sonderzeichen."
 
-#: models/languages/language.py:37
+#: models/languages/language.py:56
 msgid ""
 "This field usually contains a combination of subtags from the IANA Subtag "
 "Registry."
@@ -964,31 +964,31 @@ msgstr ""
 "Dieses Feld enthält normalerweise eine Kombination mehrerer Subtags aus der "
 "IANA Subtag Registry."
 
-#: models/languages/language.py:42
+#: models/languages/language.py:61
 msgid "native name"
 msgstr "nativer Name"
 
-#: models/languages/language.py:45
+#: models/languages/language.py:64
 msgid "name in English"
 msgstr "Name auf Englisch"
 
-#: models/languages/language.py:52
+#: models/languages/language.py:71
 msgid "text direction"
 msgstr "Schreibrichtung"
 
-#: models/languages/language.py:65
+#: models/languages/language.py:84
 msgid "\"Table of contents\" in this language"
 msgstr "\"Inhaltsverzeichnis\" in dieser Sprache"
 
-#: models/languages/language.py:67
+#: models/languages/language.py:86
 msgid "The native name for \"Table of contents\" in this language."
 msgstr "Der native Name für \"Inhaltsverzeichnis\" in dieser Sprache."
 
-#: models/languages/language.py:68
+#: models/languages/language.py:87
 msgid "This is used in exported PDFs."
 msgstr "Dies wird in exportierten PDFs verwendet."
 
-#: models/languages/language.py:108
+#: models/languages/language.py:127
 msgid "languages"
 msgstr "Sprachen"
 
@@ -1021,23 +1021,23 @@ msgstr "Sprach-Knoten"
 msgid "language tree nodes"
 msgstr "Sprach-Knoten"
 
-#: models/media/document.py:15 models/media/document.py:63
+#: models/media/document.py:47 models/media/document.py:92
 msgid "document"
 msgstr "Dokument"
 
-#: models/media/document.py:16
+#: models/media/document.py:48
 msgid "The actual document file"
 msgstr "Die eigentliche Dokumentendatei"
 
-#: models/media/document.py:20
+#: models/media/document.py:52
 msgid "uploaded date"
 msgstr "Upload-Datum"
 
-#: models/media/document.py:21
+#: models/media/document.py:53
 msgid "The date and time when the document was uploaded"
 msgstr "Das Datum und die Uhrzeit, zu der das Dokument hochgeladen wurde"
 
-#: models/media/document.py:65
+#: models/media/document.py:94
 msgid "documents"
 msgstr "Dokumente"
 
@@ -1051,7 +1051,7 @@ msgstr "Angebote"
 
 #: models/offers/offer_template.py:16
 #: models/push_notifications/push_notification_channel.py:10
-#: models/regions/region.py:26 models/users/organization.py:11
+#: models/regions/region.py:72 models/users/organization.py:11
 #: models/users/user_mfa.py:17
 msgid "name"
 msgstr "Name"
@@ -1060,7 +1060,7 @@ msgstr "Name"
 msgid "slug"
 msgstr "URL-Parameter"
 
-#: models/offers/offer_template.py:25 models/regions/region.py:45
+#: models/offers/offer_template.py:25 models/regions/region.py:91
 msgid "Leave blank to generate unique parameter from name"
 msgstr ""
 "Dieses Feld freilassen, um einen eindeutigen Alias aus dem Namen zu "
@@ -1087,7 +1087,7 @@ msgstr "POST-Parameter"
 msgid "Additional POST data for retrieving the URL."
 msgstr "Zusätzliche POST-Daten zum Abrufen der URL."
 
-#: models/offers/offer_template.py:40 models/regions/region.py:70
+#: models/offers/offer_template.py:40 models/regions/region.py:116
 msgid "Specify as JSON."
 msgstr "Als JSON angeben."
 
@@ -1243,7 +1243,7 @@ msgstr "Seitenlink"
 msgid "street and house number"
 msgstr "Straße und Hausnummer"
 
-#: models/pois/poi.py:23 models/regions/region.py:101
+#: models/pois/poi.py:23 models/regions/region.py:147
 msgid "postal code"
 msgstr "Postleitzahl"
 
@@ -1255,7 +1255,7 @@ msgstr "Stadt"
 msgid "country"
 msgstr "Land"
 
-#: models/pois/poi.py:27 models/regions/region.py:93
+#: models/pois/poi.py:27 models/regions/region.py:139
 msgid "latitude"
 msgstr "Geographische Breite"
 
@@ -1263,7 +1263,7 @@ msgstr "Geographische Breite"
 msgid "The latitude coordinate"
 msgstr "Die Breitengrad-Koordinate"
 
-#: models/pois/poi.py:30 models/regions/region.py:98
+#: models/pois/poi.py:30 models/regions/region.py:144
 msgid "longitude"
 msgstr "Geographische Länge"
 
@@ -1338,7 +1338,7 @@ msgid "push notification channel"
 msgstr "Push-Benachrichtigungskanal"
 
 #: models/push_notifications/push_notification_channel.py:36
-#: models/regions/region.py:87
+#: models/regions/region.py:133
 msgid "push notification channels"
 msgstr "Push-Benachrichtigungskanäle"
 
@@ -1350,93 +1350,93 @@ msgstr "Push-Benachrichtigungs-Übersetzung"
 msgid "push notification translations"
 msgstr "Push-Benachrichtigungs-Übersetzungen"
 
-#: models/regions/region.py:32
+#: models/regions/region.py:78
 msgid "community identification number"
 msgstr "Amtlicher Gemeindeschlüssel"
 
-#: models/regions/region.py:34
+#: models/regions/region.py:80
 msgid ""
 "Number sequence for identifying politically independent administrative units"
 msgstr ""
 "Ziffernfolge zur Identifizierung politisch selbständiger Verwaltungseinheiten"
 
-#: models/regions/region.py:44 models/users/organization.py:17
+#: models/regions/region.py:90 models/users/organization.py:17
 msgid "Unique string identifier without spaces and special characters."
 msgstr "Eindeutiger Bezeichner ohne Leerzeichen und Sonderzeichen."
 
-#: models/regions/region.py:62
+#: models/regions/region.py:108
 msgid "administrative division"
 msgstr "Verwaltungseinheit"
 
-#: models/regions/region.py:66
+#: models/regions/region.py:112
 msgid "aliases"
 msgstr "Aliasnamen"
 
-#: models/regions/region.py:68
+#: models/regions/region.py:114
 msgid "E.g. smaller municipalities in that area."
 msgstr "Z.B. kleinere Gemeinden in der Region."
 
-#: models/regions/region.py:69
+#: models/regions/region.py:115
 msgid "If empty, the CMS will try to fill this automatically."
 msgstr "Wird, wenn leer, automatisch vom CMS befüllt."
 
-#: models/regions/region.py:76
+#: models/regions/region.py:122
 msgid "activate events"
 msgstr "Veranstaltungen aktivieren"
 
-#: models/regions/region.py:77
+#: models/regions/region.py:123
 msgid "Whether or not events are enabled in the region"
 msgstr "Ob Ereignisse in der Region aktiviert sind oder nicht"
 
-#: models/regions/region.py:81
+#: models/regions/region.py:127
 msgid "activate push notifications"
 msgstr "Push-Benachrichtigungen aktivieren"
 
-#: models/regions/region.py:82
+#: models/regions/region.py:128
 msgid "Whether or not push notifications are enabled in the region"
 msgstr "Ob Push-Benachrichtigungen in der Region aktiviert sind oder nicht"
 
-#: models/regions/region.py:88
+#: models/regions/region.py:134
 msgid "Enter multiple channels separated by commas."
 msgstr "Mehrere Kanäle mit Kommata getrennt eingeben."
 
-#: models/regions/region.py:94
+#: models/regions/region.py:140
 msgid "The latitude coordinate of an approximate center of the region"
 msgstr "Die Breitengrad-Koordinate eines ungefähren Mittelpunkts der Region"
 
-#: models/regions/region.py:99
+#: models/regions/region.py:145
 msgid "The longitude coordinate of an approximate center of the region"
 msgstr "Die Längengrad-Koordinate eines ungefähren Mittelpunkts der Region"
 
-#: models/regions/region.py:104
+#: models/regions/region.py:150
 msgid "email address of the administrator"
 msgstr "E-Mail-Adresse des Administrators"
 
-#: models/regions/region.py:118
+#: models/regions/region.py:164
 msgid "activate statistics"
 msgstr "Statistiken aktivieren"
 
-#: models/regions/region.py:119
+#: models/regions/region.py:165
 msgid "Whether or not statistics are enabled for the region"
 msgstr "Ob Statistiken für die Region aktiviert sind oder nicht"
 
-#: models/regions/region.py:124
+#: models/regions/region.py:170
 msgid "Matomo ID"
 msgstr "Matomo ID"
 
-#: models/regions/region.py:126
+#: models/regions/region.py:172
 msgid "The Matomo ID of this region."
 msgstr "Die Matomo ID dieser region."
 
-#: models/regions/region.py:127
+#: models/regions/region.py:173
 msgid "Will be automatically derived from the Matomo access token."
 msgstr "Wird automatisch vom Matomo Zugangstoken abgeleitet."
 
-#: models/regions/region.py:134
+#: models/regions/region.py:180
 msgid "Matomo authentication token"
 msgstr "Matomo Authentifizierungs-Token"
 
-#: models/regions/region.py:136
+#: models/regions/region.py:182
 msgid ""
 "The secret Matomo access token of the region is used to authenticate in API "
 "requests"
@@ -1444,11 +1444,11 @@ msgstr ""
 "Das geheime Matomo-Zugangs-Token der Region wird zur Authentifizierung bei "
 "API-Anfragen verwendet"
 
-#: models/regions/region.py:142
+#: models/regions/region.py:188
 msgid "activate page-specific permissions"
 msgstr "Seiten-spezifische-Berechtigungen aktivieren"
 
-#: models/regions/region.py:144
+#: models/regions/region.py:190
 msgid ""
 "This allows individual users to be granted the right to edit or publish a "
 "specific page."
@@ -1456,26 +1456,26 @@ msgstr ""
 "Damit kann einzelnen Benutzern das Recht zum Bearbeiten oder Veröffentlichen "
 "einer bestimmten Seite eingeräumt werden."
 
-#: models/regions/region.py:152 models/users/organization.py:23
+#: models/regions/region.py:198 models/users/organization.py:23
 msgid "logo"
 msgstr "Logo"
 
-#: models/regions/region.py:157
+#: models/regions/region.py:203
 msgid "activate author chat"
 msgstr "Autoren-Chat aktivieren"
 
-#: models/regions/region.py:159
+#: models/regions/region.py:205
 msgid ""
 "This gives all users of this region access to the cross-regional author chat."
 msgstr ""
 "Dies gewährt allen Benutzern dieser Region Zugang zum überregionalen Autoren-"
 "Chat."
 
-#: models/regions/region.py:165
+#: models/regions/region.py:211
 msgid "include administrative division into name"
 msgstr "Verwaltungseinheit dem Namen hinzufügen"
 
-#: models/regions/region.py:168
+#: models/regions/region.py:214
 msgid ""
 "Determines whether the administrative division is displayed next to the "
 "region name."
@@ -1483,7 +1483,7 @@ msgstr ""
 "Legt fest, ob die Verwaltungseinheit neben dem Namen der Region angezeigt "
 "wird."
 
-#: models/regions/region.py:171
+#: models/regions/region.py:217
 msgid ""
 "Sorting is always based on the name, independently from the administrative "
 "division."
@@ -1491,7 +1491,7 @@ msgstr ""
 "Sortierungen werden immer auf Grundlage der Namen vorgenommen, unabhängig "
 "von der Verwaltungseinheit."
 
-#: models/regions/region.py:390 models/users/user_profile.py:30
+#: models/regions/region.py:436 models/users/user_profile.py:30
 msgid "regions"
 msgstr "Regionen"
 
@@ -2032,9 +2032,9 @@ msgstr "Veranstaltungsort"
 #: templates/events/event_list.html:27
 #: templates/events/event_list_archived.html:16
 #: templates/language_tree/language_tree.html:16
-#: templates/media/media_list.html:8 templates/offers/offer_list.html:15
-#: templates/pages/page_tree.html:29 templates/pages/page_tree_archived.html:17
-#: templates/pois/poi_list.html:27 templates/pois/poi_list_archived.html:17
+#: templates/offers/offer_list.html:15 templates/pages/page_tree.html:29
+#: templates/pages/page_tree_archived.html:17 templates/pois/poi_list.html:27
+#: templates/pois/poi_list_archived.html:17
 #: templates/push_notifications/push_notification_list.html:9
 #: templates/regions/region_list.html:14 templates/users/admin/list.html:14
 #: templates/users/region/list.html:9
@@ -2302,7 +2302,6 @@ msgstr "Kommentar"
 #: templates/feedback/_feedback_widget.html:19
 #: templates/feedback/admin_feedback_list.html:38
 #: templates/feedback/region_feedback_list.html:37
-#: templates/media/media_list.html:23
 msgid "Date"
 msgstr "Datum"
 
@@ -2707,21 +2706,13 @@ msgstr "Absenden"
 msgid "Return"
 msgstr "Zurück"
 
-#: templates/media/media_list.html:12
+#: templates/media/media_list.html:14
+msgid "Mediathek"
+msgstr ""
+
+#: templates/media/media_list.html:18
 msgid "Upload File"
 msgstr "Datei hochladen"
-
-#: templates/media/media_list.html:22
-#: templates/offer_templates/offer_template_list.html:24
-#: templates/offers/offer_list.html:31
-#: templates/organizations/organization_list.html:24
-#: templates/regions/region_list.html:28 templates/roles/list.html:24
-msgid "Name"
-msgstr "Name"
-
-#: templates/media/media_list.html:24
-msgid "Operations"
-msgstr "Optionen"
 
 #: templates/offer_templates/offer_template_form.html:13
 #, python-format
@@ -2757,6 +2748,13 @@ msgstr "Angebots-Vorlagen"
 #: templates/offer_templates/offer_template_list.html:14
 msgid "Create offer template"
 msgstr "Neue Angebots-Vorlage erstellen"
+
+#: templates/offer_templates/offer_template_list.html:24
+#: templates/offers/offer_list.html:31
+#: templates/organizations/organization_list.html:24
+#: templates/regions/region_list.html:28 templates/roles/list.html:24
+msgid "Name"
+msgstr "Name"
 
 #: templates/offer_templates/offer_template_list.html:38
 msgid "No offer templates available yet."
@@ -4355,6 +4353,27 @@ msgstr ""
 "Ein Benutzer muss entweder Mitarbeiter/Super-Administrator sein, oder "
 "mindestens einer Region zugewiesen sein."
 
+#~ msgid "thumbnail icon"
+#~ msgstr "Vorschaubild"
+
+#~ msgid "language tag"
+#~ msgstr "Sprach-Tag"
+
+#~ msgid "Matomo URL"
+#~ msgstr "Matomo-URL"
+
+#~ msgid "activate SSL verification for Matomo"
+#~ msgstr "SSL-Verifikation für Matomo aktivieren"
+
+#~ msgid ""
+#~ "Don't allow invalid SSL-certificates when interacting with Matomo API"
+#~ msgstr ""
+#~ "Erlaube keine ungültigen SSL-Zertifikate bei der Interaktion mit der "
+#~ "Matomo API"
+
+#~ msgid "Operations"
+#~ msgstr "Optionen"
+
 #~ msgid "Author Chat"
 #~ msgstr "Autoren-Chat"
 
@@ -4390,18 +4409,6 @@ msgstr ""
 
 #~ msgid "Please enter a correct end date."
 #~ msgstr "Bitte fügen sie ein gültiges Enddatum ein"
-
-#~ msgid "Matomo URL"
-#~ msgstr "Matomo-URL"
-
-#~ msgid "activate SSL verification for Matomo"
-#~ msgstr "SSL-Verifikation für Matomo aktivieren"
-
-#~ msgid ""
-#~ "Don't allow invalid SSL-certificates when interacting with Matomo API"
-#~ msgstr ""
-#~ "Erlaube keine ungültigen SSL-Zertifikate bei der Interaktion mit der "
-#~ "Matomo API"
 
 #~ msgid "Administrative division"
 #~ msgstr "Verwaltungseinheit"
@@ -4449,9 +4456,6 @@ msgstr ""
 
 #~ msgid "What do you want to do?"
 #~ msgstr "Was möchten Sie tun?"
-
-#~ msgid "thumbnail icon"
-#~ msgstr "Vorschaubild"
 
 #~ msgid "Name of the Role"
 #~ msgstr "Name der Rolle"
@@ -4503,6 +4507,9 @@ msgstr ""
 
 #~ msgid "read"
 #~ msgstr "gelesen"
+
+#~ msgid "Time"
+#~ msgstr "Uhrzeit"
 
 #~ msgid "PDF Export"
 #~ msgstr "PDF Export"
@@ -4684,9 +4691,6 @@ msgstr ""
 
 #~ msgid "Unique per region and language"
 #~ msgstr "Eindeutig pro Region und Sprache"
-
-#~ msgid "Time"
-#~ msgstr "Uhrzeit"
 
 #~ msgid "interval"
 #~ msgstr "Intervall"
