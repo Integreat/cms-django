@@ -49,6 +49,7 @@ setup(
         "webauthn",
         "xhtml2pdf",
         "PIL",
+        "Pillow",
     ],
     author="Integreat App Project",
     author_email="info@integreat-app.de",
