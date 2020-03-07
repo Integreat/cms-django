@@ -1603,7 +1603,7 @@ msgstr "Übersetzungs-Bericht"
 msgid "Statistics"
 msgstr "Statistiken"
 
-#: templates/_base.html:97
+#: templates/_base.html:97 templates/media/media_list.html:9
 msgid "Media Library"
 msgstr "Medienbibliothek"
 
@@ -2032,7 +2032,7 @@ msgstr "Veranstaltungsort"
 #: templates/events/event_list.html:27
 #: templates/events/event_list_archived.html:16
 #: templates/language_tree/language_tree.html:16
-#: templates/media/media_list.html:10 templates/offers/offer_list.html:15
+#: templates/media/media_list.html:22 templates/offers/offer_list.html:15
 #: templates/pages/page_tree.html:29 templates/pages/page_tree_archived.html:17
 #: templates/pois/poi_list.html:27 templates/pois/poi_list_archived.html:17
 #: templates/push_notifications/push_notification_list.html:9
