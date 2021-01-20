@@ -55,10 +55,10 @@ class UserProfile(models.Model):
         """
         We refer to Django user groups as roles.
 
-        :return: The roles/groups of this user
-        :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.Group ]
+        :return: The roles of this user
+        :rtype: list [ ~cms.models.users.role.Role ]
         """
-        return self.user.groups.all()
+        return [group.role for group in self.user.groups.all()]
 
     @property
     def full_user_name(self):
@@ -117,7 +117,7 @@ class UserProfile(models.Model):
         :return: The canonical string representation of the user profile
         :rtype: str
         """
-        return f"<UserProfile (id: {self.id}, username: {self.user.username})>"
+        return f"<UserProfile (id: {self.id}, username: {self.user.username}{', superuser' if self.user.is_superuser else ''}{', staff' if self.user.is_staff else ''})>"
 
     class Meta:
         #: The verbose name of the model

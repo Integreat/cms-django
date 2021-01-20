@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-18 16:34+0000\n"
+"POT-Creation-Date: 2021-04-18 21:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -507,14 +507,22 @@ msgstr "Das Start-Datum kann nicht nach dem End-Datum liegen"
 msgid "The end date can't be before the start date"
 msgstr "Das End-Datum kann nicht vor dem Start-Datum liegen"
 
-#: forms/users/authentication_form.py:11 forms/users/user_form.py:68
+#: forms/users/authentication_form.py:11 forms/users/user_form.py:73
 #: templates/authentication/password_reset_confirm.html:25
 msgid "Password"
 msgstr "Passwort"
 
-#: forms/users/user_form.py:63
+#: forms/users/user_form.py:68
 msgid "Leave empty to keep unchanged"
 msgstr "Feld leer lassen, um das Passwort nicht zu ändern"
+
+#: forms/users/user_form.py:139
+msgid "Staff members can only have staff roles"
+msgstr "Mitarbeiter können nur Mitarbeiterrollen haben"
+
+#: forms/users/user_form.py:148
+msgid "Only staff members can have staff roles"
+msgstr "Nur Mitarbeiter können Mitarbeiterrollen haben"
 
 #: forms/users/user_password_form.py:24
 msgid "My old password"
@@ -1523,6 +1531,26 @@ msgstr "Organisation"
 msgid "organizations"
 msgstr "Organisationen"
 
+#: models/users/role.py:16
+msgid "Django auth group"
+msgstr "Django auth Gruppe"
+
+#: models/users/role.py:20
+msgid "staff role"
+msgstr "Mitarbeiterrolle"
+
+#: models/users/role.py:21
+msgid "Whether or not this role is designed for staff members"
+msgstr "Ob diese Rolle für Mitarbeitende gedacht ist oder nicht"
+
+#: models/users/role.py:56
+msgid "role"
+msgstr "Rolle"
+
+#: models/users/role.py:58
+msgid "roles"
+msgstr "Rollen"
+
 #: models/users/user_mfa_key.py:15 models/users/user_profile.py:24
 msgid "user"
 msgstr "Benutzer"
@@ -2269,7 +2297,7 @@ msgstr "Ende"
 #: templates/organizations/organization_list.html:25
 #: templates/pages/page_tree.html:81 templates/pages/page_tree_archived.html:42
 #: templates/pois/poi_list.html:63 templates/pois/poi_list_archived.html:39
-#: templates/roles/list.html:23
+#: templates/roles/list.html:24
 msgid "Options"
 msgstr "Optionen"
 
@@ -2675,7 +2703,7 @@ msgstr "Sprache hinzufügen"
 #: templates/offer_templates/offer_template_form.html:22
 #: templates/organizations/organization_form.html:21
 #: templates/push_notifications/push_notification_form.html:29
-#: templates/regions/region_form.html:23 templates/roles/role.html:21
+#: templates/regions/region_form.html:23 templates/roles/role.html:19
 #: templates/users/admin/user.html:21 templates/users/region/user.html:24
 msgid "Save"
 msgstr "Speichern"
@@ -3377,16 +3405,24 @@ msgstr "Rollen"
 msgid "Create role"
 msgstr "Rolle erstellen"
 
-#: templates/roles/list.html:32
+#: templates/roles/list.html:23
+msgid "Staff role"
+msgstr "Mitarbeiterrolle"
+
+#: templates/roles/list.html:33
 msgid "No roles available yet."
 msgstr "Noch keine Rollen vorhanden."
 
-#: templates/roles/role.html:13
+#: templates/roles/list_row.html:19
+msgid "Delete role"
+msgstr "Rolle löschen"
+
+#: templates/roles/role.html:12
 #, python-format
 msgid "Edit role \"%(role_name)s\""
 msgstr "Rolle \"%(role_name)s\" bearbeiten"
 
-#: templates/roles/role.html:16
+#: templates/roles/role.html:14
 msgid "Create new role"
 msgstr "Neue Rolle erstellen"
 
@@ -3652,19 +3688,19 @@ msgstr "Benutzer \"%(user_name)s\" bearbeiten"
 msgid "Create new user"
 msgstr "Neuen Benutzer erstellen"
 
-#: templates/users/admin/user.html:120 templates/users/region/user.html:115
+#: templates/users/admin/user.html:127 templates/users/region/user.html:115
 msgid "Delete user"
 msgstr "Benutzer löschen"
 
-#: templates/users/admin/user.html:121 templates/users/region/user.html:110
+#: templates/users/admin/user.html:128 templates/users/region/user.html:110
 msgid "Please confirm that you really want to delete this user"
 msgstr "Bitte bestätigen Sie, dass dieser Benutzer gelöscht werden soll"
 
-#: templates/users/admin/user.html:122 templates/users/region/user.html:111
+#: templates/users/admin/user.html:129 templates/users/region/user.html:111
 msgid "This cannot be reversed."
 msgstr "Dies kann nicht rückgängig gemacht werden."
 
-#: templates/users/admin/user.html:126 templates/users/region/user.html:109
+#: templates/users/admin/user.html:133 templates/users/region/user.html:109
 msgid "Delete this user"
 msgstr "Diesen Benutzer löschen"
 
@@ -4422,15 +4458,15 @@ msgstr "Region wurde erfolgreich gespeichert"
 msgid "Region was created successfully"
 msgstr "Region wurde erfolgreich erstellt"
 
-#: views/roles/role_view.py:72
-msgid "Role was successfully saved"
-msgstr "Rolle wurde erfolgreich gespeichert"
+#: views/roles/role_view.py:87
+msgid "Role \"{}\" was successfully saved"
+msgstr "Rolle \"{}\" wurde erfolgreich gespeichert"
 
-#: views/roles/role_view.py:75
-msgid "Role was successfully created"
-msgstr "Rolle wurde erfolgreich erstellt"
+#: views/roles/role_view.py:91
+msgid "Role \"{}\" was successfully created"
+msgstr "Rolle \"{}\" wurde erfolgreich erstellt"
 
-#: views/roles/role_view.py:81
+#: views/roles/role_view.py:95
 msgid "Errors have occurred"
 msgstr "Es sind Fehler aufgetreten"
 
@@ -4677,6 +4713,15 @@ msgstr ""
 #~ msgid "Region name option"
 #~ msgstr "Option zum Namen der Region"
 
+#~ msgid "Name of the Role"
+#~ msgstr "Name der Rolle"
+
+#~ msgid "Permissions of the role"
+#~ msgstr "Berechtigungen der Rolle"
+
+#~ msgid "Recurrence rule"
+#~ msgstr "Wiederholungs-Regel"
+
 #~ msgid "Offer \"%(offer_name)s\" was successfully activated"
 #~ msgstr "Angebot \"%(offer_name)s\" wurde erfolgreich aktiviert"
 
@@ -4686,8 +4731,11 @@ msgstr ""
 #~ msgid "Could not update page translation state"
 #~ msgstr "Zustand der Übersetzung konnte nicht aktualisiert werden"
 
-#~ msgid "Recurrence rule"
-#~ msgstr "Wiederholungs-Regel"
+#~ msgid "group"
+#~ msgstr "Gruppe"
+
+#~ msgid "Enter the role's name here"
+#~ msgstr "Name der Rolle hier eingeben"
 
 #~ msgid "Code"
 #~ msgstr "Code"
@@ -4720,15 +4768,6 @@ msgstr ""
 
 #~ msgid "thumbnail icon"
 #~ msgstr "Vorschaubild"
-
-#~ msgid "Name of the Role"
-#~ msgstr "Name der Rolle"
-
-#~ msgid "Enter the role's name here"
-#~ msgstr "Name der Rolle hier eingeben"
-
-#~ msgid "Permissions of the role"
-#~ msgstr "Berechtigungen der Rolle"
 
 #~ msgid "Your E-mail-address"
 #~ msgstr "Ihre E-Mail Adresse"

@@ -84,16 +84,23 @@
                     <label for="{{ user_profile_form.expert_mode.id_for_label }}" class="font-bold mr-2 p-2 cursor-pointer">{{ user_profile_form.expert_mode.label }}</label>
                     <div class="my-2 text-s text-gray-600">{{ user_profile_form.expert_mode.help_text }}</div>
                 </div>
+
                 {% if not user_form.instance.id %}
-                <div class="py-4 border-b solid border-gray-200">
-                    {% render_field user_profile_form.send_activation_link %}
-                    <label for="{{ user_profile_form.send_activation_link.id_for_label }}" class="font-bold mr-2 p-2 cursor-pointer">{{ user_profile_form.send_activation_link.label }}</label>
-                    <div class="my-2 text-s text-gray-600">{{ user_profile_form.send_activation_link.help_text }}</div>
-                </div>
+                    <div class="py-4 border-b solid border-gray-200">
+                        {% render_field user_profile_form.send_activation_link %}
+                        <label for="{{ user_profile_form.send_activation_link.id_for_label }}" class="font-bold mr-2 p-2 cursor-pointer">{{ user_profile_form.send_activation_link.label }}</label>
+                        <div class="my-2 text-s text-gray-600">{{ user_profile_form.send_activation_link.help_text }}</div>
+                    </div>
                 {% endif %}
+
                 <div class="py-4 border-b solid border-gray-200">
                     <label for="{{ user_form.roles.id_for_label }}" class="font-bold block mb-2 cursor-pointer">{{ user_form.roles.label }}</label>
                     {% render_field user_form.roles class+="w-full" %}
+                </div>
+
+                <div class="py-4 border-b solid border-gray-200">
+                    <label for="{{ user_form.staff_roles.id_for_label }}" class="font-bold block mb-2 cursor-pointer">{{ user_form.staff_roles.label }}</label>
+                    {% render_field user_form.staff_roles class+="w-full" %}
                 </div>
 
                 <div class="py-4 border-b solid border-gray-200">
