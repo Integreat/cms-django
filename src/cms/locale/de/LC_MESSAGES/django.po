@@ -8,7 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
+<<<<<<< HEAD
+"POT-Creation-Date: 2021-02-12 18:16+0000\n"
+=======
 "POT-Creation-Date: 2021-02-12 10:22+0000\n"
+>>>>>>> 2682b9718108d6151c2b25194ff78b399038cc8a
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -365,10 +369,15 @@ msgstr ""
 msgid "The end of the event can't be before the start of the event"
 msgstr "Das Ende der Veranstaltung kann nicht vor seinem Beginn sein"
 
+<<<<<<< HEAD
+#: forms/events/event_translation_form.py:100
+#: forms/pois/poi_translation_form.py:103
+=======
 #: forms/events/event_translation_form.py:135
 #: forms/imprint/imprint_translation_form.py:122
 #: forms/pages/page_translation_form.py:140
 #: forms/pois/poi_translation_form.py:149
+>>>>>>> 2682b9718108d6151c2b25194ff78b399038cc8a
 msgid "Use of Heading 1 style not allowed."
 msgstr "Bitte benutzen Sie keine Überschrift 1 in diesem Feld."
 
@@ -414,7 +423,27 @@ msgstr ""
 msgid "Enter {} here"
 msgstr "{} hier eingeben"
 
+<<<<<<< HEAD
+#: forms/pages/page_translation_form.py:97
+#, fuzzy
+#| msgid "Use of Heading 1 style not allowed."
+msgid "Use of Heading 1 style is not allowed."
+msgstr "Bitte benutzen Sie keine Überschrift 1 in diesem Feld."
+
+#: forms/pages/page_translation_form.py:111
+#, fuzzy
+#| msgid "Use of Heading 1 style not allowed."
+msgid "Use of external links is not allowed!"
+msgstr "Bitte benutzen Sie keine Überschrift 1 in diesem Feld."
+
+#: forms/pois/poi_translation_form.py:22
+msgid "Private"
+msgstr "Privat"
+
+#: forms/regions/region_form.py:21
+=======
 #: forms/regions/region_form.py:31
+>>>>>>> 2682b9718108d6151c2b25194ff78b399038cc8a
 msgid "Do no import initial content"
 msgstr "Keine Inhalte übernehmen"
 

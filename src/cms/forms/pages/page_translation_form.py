@@ -1,4 +1,5 @@
 import logging
+import re
 
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
@@ -137,8 +138,24 @@ class PageTranslationForm(PlaceholderModelForm):
 
         if "<h1>" in text:
             raise ValidationError(
-                _("Use of Heading 1 style not allowed."),
+                _("Use of Heading 1 style is not allowed."),
                 code="no-heading-1",
             )
+
+    def clean_text2(self):
+        text = self.data["text"]
+
+        # r'href=[\'"]?([^\'" >]+)'
+        # r(?<=href=").*?(?=")+.*?(?<=target=")
+        r = re.compile(r"(\B|\b)<a+.+\/a>(\B|\b)")
+        urls = r.findall(text)
+        if urls:
+            # print(urls)
+            raise ValidationError(
+                _("Use of external links is not allowed!"),
+                code="no-external-links",
+            )
+        else:
+            print("No external links found.")
 
         return text
