@@ -6,6 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from ..regions.region import Region
 from .directory import Directory
 from .file import File
+from ...utils.media_utils import get_thumbnail
 
 
 class Document(models.Model):
@@ -31,6 +32,7 @@ class Document(models.Model):
     file = models.ForeignKey(
         File, related_name="documents", on_delete=models.CASCADE, null=True
     )
+    name = models.CharField(max_length=255, blank=True, verbose_name=_("name"))
     path = models.ForeignKey(
         Directory, related_name="documents", on_delete=models.PROTECT, null=True
     )
@@ -76,15 +78,8 @@ class Document(models.Model):
         """
         return os.path.basename(self.file.path)
 
-    def __repr__(self):
-        """
-        This overwrites the default Django ``__repr__()`` method which would return ``<Document: Document object (id)>``.
-        It is used for logging.
-
-        :return: The canonical string representation of the document
-        :rtype: str
-        """
-        return f"<Document (id: {self.id}, name: {self.document.name})>"
+    def thumbnail_path(self):
+        return get_thumbnail(self.file, 300, 300, True)
 
     class Meta:
         #: The verbose name of the model
