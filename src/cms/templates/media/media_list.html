@@ -8,14 +8,15 @@
         transition: opacity 0.25s ease;
     }
 </style>
-<div class="table-header">
-    <div class="flex flex-wrap p-2">
-        <div class="w-1/5">
+<div class="flex flex-wrap items-center">
+    <div class="p-2">
+        <div">
             <h2 class="heading font-normal mb-2">{% trans 'Media Library' %}</h2>
         </div>
+        <div class="flex-1"></div>
         {% if perms.cms.manage_documents %}
-            <div class="w-1/5 flex flex-wrap justify-start">
-                <a href="{% url 'create_directory' region_slug=region.slug directory_id=directory_id%}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <div class="flex flex-wrap justify-start">
+                <a href="{% url 'create_directory' region_slug=region.slug directory_id=directory_id%}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2">
                     {% trans 'Create directory' %}
                 </a>
                 <a href="{% url 'edit_file' document_id='0' region_slug=region.slug directory_id=directory_id %}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
@@ -34,11 +35,12 @@
     {% endfor %}
 </ol>
 
-<div class="grid">
+<div class="grid grid-cols-gallery">
 
     {% for folder in directory %}
-        <a class="flex-col justify-between items-center flex" href="{% url 'media' region_slug=region.slug directory_id=folder.id %}">
-            <i class=" w-1/2 flex-1" data-feather="folder"></i>
+        <a class="flex flex-col items-center h-44" href="{% url 'media' region_slug=region.slug directory_id=folder.id %}">
+            <i class="w-full h-24" data-feather="folder"></i>
+            <div class="flex-1"></div>
             <span> {{ folder.name }} </span>
             {% with item_count=folder.subdirectories.count|add:folder.documents.count %}
             <span>{% blocktrans %}{{ item_count }} Elements{% endblocktrans %}</span>
@@ -48,14 +50,15 @@
 
     {% for obj in documents %}
     <div class="">
-        <div class="flex flex-col justify-between items-center modal-activator">
+        <div class="flex flex-col items-center modal-activator h-44">
             {% with thumbnail_path=obj.thumbnail_path %}
                 {% if thumbnail_path %}
-                    <img src="{{thumbnail_path}}" />
+                    <img class="h-24" src="{{thumbnail_path}}" />
                 {% else %}
-                    <i class=" w-1/2 flex-1" data-feather="file"></i>
+                    <i class="h-24 w-full" data-feather="file"></i>
                 {% endif %}
             {% endwith %}
+            <div class="flex-1"></div>
             <span class="truncate max-w-full"> {{obj.name}} </span>
             <span> {{obj.uploaded_at}} </span>
         </div>
@@ -80,7 +83,7 @@
 
 </div>
 <script>
-    const elements = document.querySelectorAll('.modal-activator');
+    /*const elements = document.querySelectorAll('.modal-activator');
     function toggleModal(element) {
         const modal = element.querySelector('.modal');
         modal.classList.toggle('opacity-0');
@@ -91,7 +94,7 @@
         const overlay = element.parentElement.querySelector('.modal-overlay');
         overlay.addEventListener('click', () => toggleModal(element.parentElement));
     });
-
+*/
 
 </script>
 {% endblock %}

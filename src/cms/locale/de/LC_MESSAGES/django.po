@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-11 16:22+0000\n"
+"POT-Creation-Date: 2021-04-11 17:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -2694,7 +2694,7 @@ msgstr "Zuletzt aktualisiert"
 msgid "No languages available yet."
 msgstr "Noch keine Sprachen vorhanden."
 
-#: templates/media/directory_form.html:9 templates/media/media_list.html:19
+#: templates/media/directory_form.html:9 templates/media/media_list.html:20
 msgid "Create directory"
 msgstr "Verzeichnis erstellen"
 
@@ -2706,15 +2706,15 @@ msgstr "Absenden"
 msgid "Return"
 msgstr "Zurück"
 
-#: templates/media/media_list.html:22
+#: templates/media/media_list.html:23
 msgid "Upload File"
 msgstr "Datei hochladen"
 
-#: templates/media/media_list.html:30
+#: templates/media/media_list.html:31
 msgid "Home"
 msgstr "Home"
 
-#: templates/media/media_list.html:44
+#: templates/media/media_list.html:46
 #, python-format
 msgid "%(item_count)s Elements"
 msgstr "%(item_count)s Elemente"
@@ -4365,7 +4365,6 @@ msgstr ""
 #~ msgid "Push Notifications"
 #~ msgstr "Push-Benachrichtigungen"
 
-#, fuzzy
 #~ msgid "Points of Interest"
 #~ msgstr "Points of Interest"
 

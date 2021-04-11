@@ -6,8 +6,7 @@ from django.views.generic import TemplateView
 from ...utils.media_utils import attach_file
 from ...decorators import region_permission_required
 from ...forms import DocumentForm
-from ...models import Document, Region
-from ...utils.file_utils import save_file
+from ...models import Document, Region, Directory
 
 
 @method_decorator(login_required, name="dispatch")
