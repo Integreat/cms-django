@@ -3,6 +3,8 @@ Expansion of API-Endpoints for the CMS
 """
 from django.conf.urls import include, url
 
+from .v3.assets import single_asset
+
 from .v3.feedback import (
     page_feedback,
     search_result_feedback,
@@ -129,5 +131,10 @@ urlpatterns = [
                 ),
             ]
         ),
+    ),
+    url(
+        r"^assets/(?P<asset_id>\d+)/(?P<asset_name>.+)$",
+        single_asset,
+        name="api_single_asset",
     ),
 ]

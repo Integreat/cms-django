@@ -37,7 +37,7 @@ class Document(models.Model):
         Directory, related_name="documents", on_delete=models.PROTECT, null=True
     )
     region = models.ForeignKey(
-        Region, related_name="documents", on_delete=models.CASCADE
+        Region, related_name="documents", on_delete=models.CASCADE, null=True
     )
     uploaded_at = models.DateTimeField(auto_now_add=True)
     description = models.CharField(

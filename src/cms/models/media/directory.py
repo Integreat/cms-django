@@ -23,7 +23,7 @@ class Directory(models.Model):
 
     name = models.CharField(max_length=255, blank=False)
     region = models.ForeignKey(
-        Region, related_name="media_directories", on_delete=models.CASCADE
+        Region, related_name="media_directories", on_delete=models.CASCADE, null=True
     )
     parent = models.ForeignKey(
         "self",

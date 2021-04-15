@@ -4,6 +4,7 @@ Therefore, it's managing the region permissions and connects the different data 
 Especially, the root file, the use of the file defined in the Document and the different meta data.
 """
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
@@ -49,8 +50,12 @@ class MediaListView(TemplateView):
             directory = Directory.objects.get(id=directory_id)
         else:
             directory = None
-        documents = Document.objects.filter(region=region, path=directory)
-        directories = Directory.objects.filter(region=region, parent=directory)
+        documents = Document.objects.filter(
+            Q(region=region) | Q(region__isnull=True), Q(path=directory)
+        )
+        directories = Directory.objects.filter(
+            Q(region=region) | Q(region__isnull=True), parent=directory
+        )
 
         current_breadcrumb = directory
         try:
