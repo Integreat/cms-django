@@ -5,7 +5,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from ..regions.region import Region
 from .directory import Directory
-from .file import File
 from ...utils.media_utils import get_thumbnail
 
 
@@ -29,11 +28,11 @@ class Document(models.Model):
     :param meta_data: The meta properties of this document
     """
 
-    file = models.ForeignKey(
-        File, related_name="documents", on_delete=models.CASCADE, null=True
-    )
+    physical_path = models.CharField(max_length=255, blank=False)
+    type = models.CharField(max_length=255, blank=False)
+
     name = models.CharField(max_length=255, blank=True, verbose_name=_("name"))
-    path = models.ForeignKey(
+    parent_directory = models.ForeignKey(
         Directory, related_name="documents", on_delete=models.PROTECT, null=True
     )
     region = models.ForeignKey(
@@ -76,10 +75,20 @@ class Document(models.Model):
         :return: A readable string representation of the document
         :rtype: str
         """
-        return os.path.basename(self.file.path)
+        return os.path.basename(self.physical_path)
 
     def thumbnail_path(self):
-        return get_thumbnail(self.file, 300, 300, True)
+        return get_thumbnail(self, 300, 300, True)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "type": "file",
+            "thumbnailPath": self.thumbnail_path(),
+            "path": self.physical_path,
+            "uploadedAt": self.uploaded_at,
+        }
 
     class Meta:
         #: The verbose name of the model

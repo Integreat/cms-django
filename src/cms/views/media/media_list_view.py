@@ -51,7 +51,7 @@ class MediaListView(TemplateView):
         else:
             directory = None
         documents = Document.objects.filter(
-            Q(region=region) | Q(region__isnull=True), Q(path=directory)
+            Q(region=region) | Q(region__isnull=True), Q(parent_directory=directory)
         )
         directories = Directory.objects.filter(
             Q(region=region) | Q(region__isnull=True), parent=directory

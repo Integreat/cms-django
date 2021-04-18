@@ -33,6 +33,9 @@ class Directory(models.Model):
         null=True,
     )
 
+    def serialize(self):
+        return {"type": "directory", "id": self.id, "name": self.name}
+
     def __str__(self):
         """
         This overwrites the default Python __str__ method which would return <Document object at 0xDEADBEEF>
