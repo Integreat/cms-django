@@ -33,13 +33,11 @@ class EventTranslationForm(CustomModelForm):
             "minor_edit",
         ]
 
-    # pylint: disable=too-many-arguments
-    def __init__(
-        self, data=None, instance=None, disabled=False, region=None, language=None
-    ):
+    def __init__(self, *args, **kwargs):
 
-        self.region = region
-        self.language = language
+        self.region = kwargs.pop("region", None)
+        self.language = kwargs.pop("language", None)
+        data = kwargs.pop("data", None)
 
         # To set the status value through the submit button, we have to overwrite the field value for status.
         # We could also do this in the save() function, but this would mean that it is not recognized in changed_data.
@@ -54,14 +52,10 @@ class EventTranslationForm(CustomModelForm):
                 data.update({"status": status.REVIEW})
             elif "submit_public" in data:
                 data.update({"status": status.PUBLIC})
+            kwargs["data"] = data
 
         # Instantiate ModelForm
-        super().__init__(data=data, instance=instance)
-
-        # If form is disabled because the user has no permissions to edit the page, disable all form fields
-        if disabled:
-            for _, field in self.fields.items():
-                field.disabled = True
+        super().__init__(*args, **kwargs)
 
     # pylint: disable=arguments-differ
     def save(self, event=None, user=None):

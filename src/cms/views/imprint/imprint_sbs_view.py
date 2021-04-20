@@ -1,6 +1,7 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import Http404
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
@@ -9,22 +10,22 @@ from django.views.generic import TemplateView
 
 from backend.settings import IMPRINT_SLUG, WEBAPP_URL
 from ...constants import status
-from ...decorators import region_permission_required
+from ...decorators import region_permission_required, permission_required
 from ...forms import ImprintTranslationForm
 from ...models import Region, Language, ImprintPage
+
+logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-class ImprintSideBySideView(PermissionRequiredMixin, TemplateView):
+@method_decorator(permission_required("cms.view_imprint"), name="dispatch")
+@method_decorator(permission_required("cms.change_imprint"), name="post")
+class ImprintSideBySideView(TemplateView):
     """
     View for the imprint side by side form
     """
 
-    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
-    permission_required = "cms.manage_imprint"
-    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
-    raise_exception = True
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "imprint/imprint_sbs.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
@@ -115,7 +116,7 @@ class ImprintSideBySideView(PermissionRequiredMixin, TemplateView):
             },
         )
 
-    # pylint: disable=unused-argument
+    # pylint: disable=unused-argument, too-many-branches
     def post(self, request, *args, **kwargs):
         """
         Submit :class:`~cms.forms.imprint.imprint_translation_form.ImprintTranslationForm` and save

@@ -26,6 +26,9 @@ class CustomModelForm(forms.ModelForm):
 
         :raises TypeError: If form is instantiated directly without an inheriting subclass
         """
+        # pop kwarg to make sure the super class does not get this param
+        disabled = kwargs.pop("disabled", None)
+
         # Instantiate ModelForm
         try:
             super().__init__(*args, **kwargs)
@@ -60,9 +63,13 @@ class CustomModelForm(forms.ModelForm):
                 type(self).__name__,
             )
 
-        # Set placeholder for every text input fields
-        for field_name in self.fields:
-            field = self.fields[field_name]
+        for field_name, field in self.fields.items():
+
+            # If form is disabled, disable all form fields
+            if disabled:
+                field.disabled = True
+
+            # Set placeholder for every text input fields
             if isinstance(
                 field.widget,
                 (

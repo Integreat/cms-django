@@ -1,4 +1,6 @@
 import html
+import logging
+
 import feedparser
 
 from django.contrib.auth.decorators import login_required
@@ -10,6 +12,8 @@ from django.views.generic import TemplateView
 from backend.settings import RSS_FEED_URLS, BLOG_URLS
 from ...decorators import region_permission_required
 from ..chat.chat_context_mixin import ChatContextMixin
+
+logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")

@@ -2,7 +2,6 @@ import logging
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.decorators import method_decorator
@@ -10,7 +9,7 @@ from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
 
 from ...constants import status
-from ...decorators import region_permission_required
+from ...decorators import region_permission_required, permission_required
 from ...forms import EventForm, EventTranslationForm, RecurrenceRuleForm
 from ...models import Region, Language, Event, EventTranslation, RecurrenceRule, POI
 from .event_context_mixin import EventContextMixin
@@ -20,16 +19,13 @@ logger = logging.getLogger(__name__)
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-# pylint: disable=too-many-ancestors
-class EventView(PermissionRequiredMixin, TemplateView, EventContextMixin):
+@method_decorator(permission_required("cms.view_event"), name="dispatch")
+@method_decorator(permission_required("cms.change_event"), name="post")
+class EventView(TemplateView, EventContextMixin):
     """
     Class for rendering the events form
     """
 
-    #: Required permission of this view (see :class:`~django.contrib.auth.mixins.PermissionRequiredMixin`)
-    permission_required = "cms.view_events"
-    #: Whether or not an exception should be raised if the user is not logged in (see :class:`~django.contrib.auth.mixins.LoginRequiredMixin`)
-    raise_exception = True
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "events/event_form.html"
 
@@ -64,7 +60,7 @@ class EventView(PermissionRequiredMixin, TemplateView, EventContextMixin):
         poi_instance = region.pois.filter(events=event_instance).first()
 
         # Make form disabled if user has no permission to edit the page
-        if not request.user.has_perm("cms.edit_events"):
+        if not request.user.has_perm("cms.change_event"):
             disabled = True
             messages.warning(
                 request, _("You don't have the permission to edit this event.")
@@ -111,7 +107,7 @@ class EventView(PermissionRequiredMixin, TemplateView, EventContextMixin):
         :param kwargs: The supplied keyword arguments
         :type kwargs: dict
 
-        :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit events
+        :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to publish events
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
@@ -127,9 +123,6 @@ class EventView(PermissionRequiredMixin, TemplateView, EventContextMixin):
         event_translation_instance = EventTranslation.objects.filter(
             event=event_instance, language=language
         ).first()
-
-        if not request.user.has_perm("cms.edit_events"):
-            raise PermissionDenied
 
         event_form = EventForm(
             data=request.POST,
@@ -212,8 +205,10 @@ class EventView(PermissionRequiredMixin, TemplateView, EventContextMixin):
             )
 
         if event_translation_form.instance.status == status.PUBLIC:
-            if not request.user.has_perm("cms.publish_events"):
-                raise PermissionDenied
+            if not request.user.has_perm("cms.publish_event"):
+                raise PermissionDenied(
+                    f"{request.user.profile!r} does not have the permission 'cms.publish_event'"
+                )
 
         if event_form.cleaned_data["is_recurring"]:
             recurrence_rule = recurrence_rule_form.save()
@@ -256,5 +251,5 @@ class EventView(PermissionRequiredMixin, TemplateView, EventContextMixin):
                 "event_id": event.id,
                 "region_slug": region.slug,
                 "language_slug": language.slug,
-            }
+            },
         )

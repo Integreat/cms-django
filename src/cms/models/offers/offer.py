@@ -134,6 +134,4 @@ class Offer(models.Model):
             ),
         )
         #: The default permissions for this model
-        default_permissions = ()
-        #: The custom permissions for this model
-        permissions = (("manage_offers", "Can manage offers"),)
+        default_permissions = ("change", "view")

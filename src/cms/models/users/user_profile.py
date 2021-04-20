@@ -125,9 +125,4 @@ class UserProfile(models.Model):
         #: The plural verbose name of the model
         verbose_name_plural = _("user profiles")
         #: The default permissions for this model
-        default_permissions = ()
-        #: The custom permissions for this model
-        permissions = (
-            ("manage_admin_users", "Can manage admin users"),
-            ("manage_region_users", "Can manage region users"),
-        )
+        default_permissions = ("change", "delete", "view")

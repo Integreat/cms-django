@@ -1,5 +1,30 @@
 [
   {
+    "model": "auth.group",
+    "pk": 1,
+    "fields": {
+      "name": "Verwaltung",
+      "permissions": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        13,
+        14,
+        15,
+        16,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29
+      ]
+    }
+  },
+  {
     "model": "cms.role",
     "pk": 1,
     "fields": {
@@ -8,11 +33,36 @@
     }
   },
   {
+    "model": "auth.group",
+    "pk": 2,
+    "fields": {
+      "name": "Redakteur",
+      "permissions": [
+        13,
+        14,
+        15
+      ]
+    }
+  },
+  {
     "model": "cms.role",
     "pk": 2,
     "fields": {
       "group": 2,
       "staff_role": false
+    }
+  },
+  {
+    "model": "auth.group",
+    "pk": 3,
+    "fields": {
+      "name": "Terminplaner",
+      "permissions": [
+        2,
+        3,
+        4,
+        16
+      ]
     }
   },
   {
@@ -25,51 +75,23 @@
   },
   {
     "model": "auth.group",
-    "pk": 1,
+    "pk": 4,
     "fields": {
-      "name": "Verwaltung",
+      "name": "Integreat-Mitarbeiter",
       "permissions": [
         2,
         3,
         4,
-        5,
-        6,
-        10,
-        11,
-        12,
-        13,
-        17,
-        18,
-        19,
-        20,
-        21,
-        22
+        16
       ]
     }
   },
   {
-    "model": "auth.group",
-    "pk": 2,
+    "model": "cms.role",
+    "pk": 4,
     "fields": {
-      "name": "Redakteur",
-      "permissions": [
-        9,
-        10,
-        11
-      ]
-    }
-  },
-  {
-    "model": "auth.group",
-    "pk": 3,
-    "fields": {
-      "name": "Terminplaner",
-      "permissions": [
-        2,
-        3,
-        4,
-        12
-      ]
+      "group": 4,
+      "staff_role": true
     }
   }
 ]

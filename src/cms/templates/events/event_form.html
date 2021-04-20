@@ -33,12 +33,12 @@
                 {% endif %}
             </h1>
         </div>
-        {% has_perm 'cms.edit_events' request.user as can_edit_event %}
+        {% has_perm 'cms.change_event' request.user as can_edit_event %}
         {% if not event_form.instance.id or not event_form.instance.archived %}
             <div class="w-1/5 flex justify-end mb-6">
             {% if can_edit_event %}
                 <input type="submit" name="submit_draft" class="bg-gray-500 hover:bg-gray-600 cursor-pointer text-white font-bold py-3 px-4 rounded mr-2" value="{% trans 'Save as draft' %}" />
-            {% has_perm 'cms.publish_events' request.user as can_publish_event %}
+            {% has_perm 'cms.publish_event' request.user as can_publish_event %}
             {% if can_publish_event %}
                 <input type="submit" name="submit_public" class="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded" value="{% trans 'Publish' %}" />
             {% else %}
@@ -284,7 +284,7 @@
                                 </button>
                             {% endif %}
                         </div>
-                        {% if user.is_superuser or user.is_staff %}
+                        {% if perms.cms.delete_event %}
                             <div class="pt-2 pb-4">
                                 <span class="block font-bold mb-4">{% trans 'Delete event' %}</span>
                                 <button class="confirmation-button w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" 

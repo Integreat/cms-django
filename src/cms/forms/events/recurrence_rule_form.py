@@ -44,24 +44,19 @@ class RecurrenceRuleForm(CustomModelForm):
             ),
         }
 
-    def __init__(self, data=None, instance=None, event_start_date=None, disabled=False):
+    def __init__(self, *args, **kwargs):
+
+        # Set event start date to be used in clean()-method
+        self.event_start_date = kwargs.pop("event_start_date", None)
 
         # Instantiate ModelForm
-        super().__init__(data=data, instance=instance)
+        super().__init__(*args, **kwargs)
 
         if self.instance.id:
             # Initialize BooleanField based on RecurrenceRule properties
             self.fields["has_recurrence_end_date"].initial = bool(
                 self.instance.recurrence_end_date
             )
-
-        # Set event start date to be used in clean()-method
-        self.event_start_date = event_start_date
-
-        # If form is disabled because the user has no permissions to edit the page, disable all form fields
-        if disabled:
-            for _, field in self.fields.items():
-                field.disabled = True
 
     def clean(self):
         """

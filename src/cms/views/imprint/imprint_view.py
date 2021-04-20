@@ -2,7 +2,6 @@ import logging
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.utils.decorators import method_decorator
@@ -11,7 +10,7 @@ from django.views.generic import TemplateView
 
 from backend.settings import IMPRINT_SLUG, WEBAPP_URL
 from ...constants import status
-from ...decorators import region_permission_required
+from ...decorators import region_permission_required, permission_required
 from ...forms import ImprintTranslationForm
 from ...models import ImprintPageTranslation, ImprintPage, Region
 
@@ -20,13 +19,12 @@ logger = logging.getLogger(__name__)
 
 @method_decorator(login_required, name="dispatch")
 @method_decorator(region_permission_required, name="dispatch")
-class ImprintView(PermissionRequiredMixin, TemplateView):
+@method_decorator(permission_required("cms.view_imprint"), name="dispatch")
+@method_decorator(permission_required("cms.edit_imprint"), name="post")
+class ImprintView(TemplateView):
     """
     View for the imprint page form and imprint page translation form
     """
-
-    permission_required = "cms.manage_imprint"
-    raise_exception = True
 
     template_name = "imprint/imprint_form.html"
     base_context = {
@@ -47,8 +45,6 @@ class ImprintView(PermissionRequiredMixin, TemplateView):
 
         :param kwargs: The supplied keyword arguments
         :type kwargs: dict
-
-        :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse

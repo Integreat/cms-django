@@ -4,12 +4,12 @@ This module contains view actions for offer objects.
 import logging
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 
-from ...decorators import region_permission_required
+from ...decorators import region_permission_required, permission_required
 from ...models import Region, Offer, OfferTemplate
 
 logger = logging.getLogger(__name__)
@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 @require_POST
 @login_required
 @region_permission_required
-@permission_required("cms.manage_offers", raise_exception=True)
+@permission_required("cms.change_offer")
 def activate(request, region_slug, offer_template_slug):
     """
     This view activates an offer for a specific region by creating an :class:`~cms.models.offers.offer.Offer` object
@@ -36,7 +36,8 @@ def activate(request, region_slug, offer_template_slug):
     :rtype: ~django.http.HttpResponseRedirect
     """
     region = Region.get_current_region(request)
-    template = OfferTemplate.objects.get(slug=offer_template_slug)
+    template = get_object_or_404(OfferTemplate, slug=offer_template_slug)
+
     offer = Offer.objects.create(region=region, template=template)
     messages.success(
         request, _("Offer {} was successfully activated").format(offer.name)
@@ -53,7 +54,7 @@ def activate(request, region_slug, offer_template_slug):
 @require_POST
 @login_required
 @region_permission_required
-@permission_required("cms.manage_offers", raise_exception=True)
+@permission_required("cms.change_offer")
 def deactivate(request, region_slug, offer_template_slug):
     """
     This view deactivates an offer for a specific region by deleting the respective
@@ -72,8 +73,9 @@ def deactivate(request, region_slug, offer_template_slug):
     :rtype: ~django.http.HttpResponseRedirect
     """
     region = Region.get_current_region(request)
-    template = OfferTemplate.objects.get(slug=offer_template_slug)
-    offer = Offer.objects.filter(region=region, template=template).first()
+    template = get_object_or_404(OfferTemplate, slug=offer_template_slug)
+    offer = get_object_or_404(region.offers, template=template)
+
     messages.success(
         request, _("Offer {} was successfully deactivated").format(offer.name)
     )

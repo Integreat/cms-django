@@ -107,77 +107,79 @@
 					</a>
 				</div>
 			</div>
-			{% if perms.cms.view_pages %}
+			{% if perms.cms.view_page %}
 				<div {% if current_menu_item == 'pages' or current_menu_item == 'new_page' %}class="active"{% endif %}>
 					<a href="{% url 'pages' region_slug=region.slug %}">
 						<i data-feather="layout"></i>
 						{% trans 'Pages' %}
 					</a>
-					<div class="dropdown-container">
-						<a href="{% url 'pages' region_slug=region.slug %}" {% if current_menu_item == 'pages' %}class="active"{% endif %}>
-							{% trans 'All pages' %}
-						</a>
-						{% if region.default_language and region.default_language == language %}
+					{% if perms.cms.change_page and region.default_language and region.default_language == language %}
+						<div class="dropdown-container">
+							<a href="{% url 'pages' region_slug=region.slug %}" {% if current_menu_item == 'pages' %}class="active"{% endif %}>
+								{% trans 'All pages' %}
+							</a>
 							<a href="{% url 'new_page' region_slug=region.slug language_slug=language.slug %}" {% if current_menu_item == 'new_page' and not page %}class="active"{% endif %}>
 								{% trans 'Create page' %}
 							</a>
-						{% endif %}
-					</div>
+						</div>
+					{% endif %}
 				</div>
 			{% endif %}
-			{% if perms.cms.view_events %}
+			{% if perms.cms.view_event %}
 				<div {% if current_menu_item == 'events' or current_menu_item == 'events_form' %}class="active"{% endif %}>
 					<a href="{% url 'events' region_slug=region.slug %}">
 						<i data-feather="calendar"></i>
 						{% trans 'Events' %}
 					</a>
-					<div class="dropdown-container">
-						<a href="{% url 'events' region_slug=region.slug %}" {% if current_menu_item == 'events' %}class="active"{% endif %}>
-							{% trans 'All events' %}
-						</a>
-						{% if language %}
-						<a href="{% url 'new_event' region_slug=region.slug language_slug=language.slug %}" {% if current_menu_item == 'events_form' and not event_form.instance.id %}class="active"{% endif %}>
-							{% trans 'Create event' %}
-						</a>
-						{% endif %}
-					</div>
+					{% if perms.cms.change_event and region.default_language and region.default_language == language %}
+						<div class="dropdown-container">
+							<a href="{% url 'events' region_slug=region.slug %}" {% if current_menu_item == 'events' %}class="active"{% endif %}>
+								{% trans 'All events' %}
+							</a>
+							<a href="{% url 'new_event' region_slug=region.slug language_slug=language.slug %}" {% if current_menu_item == 'events_form' and not event_form.instance.id %}class="active"{% endif %}>
+								{% trans 'Create event' %}
+							</a>
+						</div>
+					{% endif %}
 				</div>
 			{% endif %}
-			{% if perms.cms.manage_pois %}
+			{% if perms.cms.view_poi %}
 				<div {% if current_menu_item == 'pois' or current_menu_item == 'pois_form' %}class="active"{% endif %}>
 					<a href="{% url 'pois' region_slug=region.slug %}">
 						<i data-feather="map-pin"></i>
 						{% trans 'Locations on map' %}
 					</a>
-					<div class="dropdown-container">
-						<a href="{% url 'pois' region_slug=region.slug %}" {% if current_menu_item == 'pois' %}class="active"{% endif %}>
-							{% trans 'All locations' %}
-						</a>
-						{% if language %}
-						<a href="{% url 'new_poi' region_slug=region.slug language_slug=language.slug %}" {% if current_menu_item == 'pois_form' and not poi_form.instance.id %}class="active"{% endif %}>
-							{% trans 'Create location' %}
-						</a>
-						{% endif %}
-					</div>
+					{% if perms.cms.change_poi and region.default_language and region.default_language == language %}
+						<div class="dropdown-container">
+							<a href="{% url 'pois' region_slug=region.slug %}" {% if current_menu_item == 'pois' %}class="active"{% endif %}>
+								{% trans 'All locations' %}
+							</a>
+							<a href="{% url 'new_poi' region_slug=region.slug language_slug=language.slug %}" {% if current_menu_item == 'pois_form' and not poi_form.instance.id %}class="active"{% endif %}>
+								{% trans 'Create location' %}
+							</a>
+						</div>
+					{% endif %}
 				</div>
 			{% endif %}
-			{% if perms.cms.manage_region_users %}
+			{% if perms.auth.view_user %}
 				<div {% if current_menu_item == 'region_users' or current_menu_item == 'region_users_form' %}class="active"{% endif %}>
 					<a href="{% url 'region_users' region_slug=region.slug %}">
 						<i data-feather="users"></i>
 						{% trans 'Users' %}
 					</a>
-					<div class="dropdown-container">
-						<a href="{% url 'region_users' region_slug=region.slug %}" {% if current_menu_item == 'region_users' %}class="active"{% endif %}>
-							{% trans 'All users' %}
-						</a>
-						<a href="{% url 'new_region_user' region_slug=region.slug %}" {% if current_menu_item == 'region_users_form' and not user_form.instance.id %}class="active"{% endif %}>
-							{% trans 'Create user' %}
-						</a>
-					</div>
+					{% if perms.auth.change_user %}
+						<div class="dropdown-container">
+							<a href="{% url 'region_users' region_slug=region.slug %}" {% if current_menu_item == 'region_users' %}class="active"{% endif %}>
+								{% trans 'All users' %}
+							</a>
+							<a href="{% url 'new_region_user' region_slug=region.slug %}" {% if current_menu_item == 'region_users_form' and not user_form.instance.id %}class="active"{% endif %}>
+								{% trans 'Create user' %}
+							</a>
+						</div>
+					{% endif %}
 				</div>
 			{% endif %}
-			{% if perms.cms.manage_feedback %}
+			{% if perms.cms.view_feedback %}
 				<a href="{% url 'region_feedback' region_slug=region.slug %}" {% if current_menu_item == 'region_feedback' %}class="active"{% endif %}>
 					<i data-feather="thumbs-up"></i>
 					{% trans 'Feedback' %}
@@ -189,44 +191,46 @@
 						<i data-feather="send"></i>
 						{% trans 'News' %}
 					</a>
-					<div class="dropdown-container">
-						<a href="{% url 'push_notifications' region_slug=region.slug %}" {% if current_menu_item == 'push_notifications' %}class="active"{% endif %}>
-							{% trans 'All push notifications' %}
-						</a>
-						{% if language %}
-						<a href="{% url 'new_push_notification' region_slug=region.slug language_slug=language.slug %}" {% if current_menu_item == 'push_notifications_form' and not push_notification %}class="active"{% endif %}>
-							{% trans 'Create push notification' %}
-						</a>
-						{% endif %}
-					</div>
+					{% if perms.cms.edit_push_notifications and language %}
+						<div class="dropdown-container">
+							<a href="{% url 'push_notifications' region_slug=region.slug %}" {% if current_menu_item == 'push_notifications' %}class="active"{% endif %}>
+								{% trans 'All push notifications' %}
+							</a>
+							<a href="{% url 'new_push_notification' region_slug=region.slug language_slug=language.slug %}" {% if current_menu_item == 'push_notifications_form' and not push_notification %}class="active"{% endif %}>
+								{% trans 'Create push notification' %}
+							</a>
+						</div>
+					{% endif %}
 				</div>
 			{% endif %}
-			{% if perms.cms.manage_offers %}
+			{% if perms.cms.view_offers %}
 				<a href="{% url 'offers' region_slug=region.slug %}" {% if current_menu_item == 'offers' %}class="active"{% endif %}>
 					<i data-feather="star"></i>
 					{% trans 'Offers' %}
 				</a>
 			{% endif %}
-			{% if perms.cms.manage_imprint %}
+			{% if perms.cms.view_imprint %}
 				<a href="{% url 'edit_imprint' region_slug=region.slug %}" {% if current_menu_item == 'imprint' %}class="active"{% endif %}>
 					<i data-feather="file-text"></i>
 					{% trans 'Imprint' %}
 				</a>
 			{% endif %}
-			{% if perms.cms.manage_language_tree %}
+			{% if perms.cms.view_language_tree %}
 				<div {% if current_menu_item == 'language_tree' or current_menu_item == 'language_tree_form' %}class="active"{% endif %}>
 					<a href="{% url 'language_tree' region_slug=region.slug %}">
 						<i data-feather="flag"></i>
 						{% trans 'Language tree' %}
 					</a>
-					<div class="dropdown-container">
-						<a href="{% url 'language_tree' region_slug=region.slug %}" {% if current_menu_item == 'language_tree' %}class="active"{% endif %}>
-							{% trans 'All language tree nodes' %}
-						</a>
-						<a href="{% url 'new_language_tree_node' region_slug=region.slug %}" {% if current_menu_item == 'language_tree_form' and not language_tree_node_form.instance.id %}class="active"{% endif %}>
-							{% trans 'Create language tree node' %}
-						</a>
-					</div>
+					{% if perms.cms.edit_language_tree %}
+						<div class="dropdown-container">
+							<a href="{% url 'language_tree' region_slug=region.slug %}" {% if current_menu_item == 'language_tree' %}class="active"{% endif %}>
+								{% trans 'All language tree nodes' %}
+							</a>
+							<a href="{% url 'new_language_tree_node' region_slug=region.slug %}" {% if current_menu_item == 'language_tree_form' and not language_tree_node_form.instance.id %}class="active"{% endif %}>
+								{% trans 'Create language tree node' %}
+							</a>
+						</div>
+					{% endif %}
 				</div>
 			{% endif %}
 	        <a href="{% url 'settings' region_slug=region.slug %}" {% if current_menu_item == 'region_settings' %}class="active"{% endif %}>
@@ -238,19 +242,19 @@
 			    <i data-feather="grid"></i>
 			    {% trans 'Admin Dashboard' %}
 			</a>
-			{% if perms.cms.manage_regions %}
+			{% if perms.cms.view_regions %}
 				<a href="{% url 'regions' %}" {% if current_menu_item == 'regions' %}class="active"{% endif %}>
 					<i data-feather="map"></i>
 					{% trans 'Regions' %}
 				</a>
 			{% endif %}
-			{% if perms.cms.manage_languages %}
+			{% if perms.cms.view_languages %}
 				<a href="{% url 'languages' %}" {% if current_menu_item == 'languages' %}class="active"{% endif %}>
 					<i data-feather="flag"></i>
 					{% trans 'Languages' %}
 				</a>
 			{% endif %}
-			{% if perms.cms.manage_admin_users %}
+			{% if perms.auth.view_user %}
 				<a href="{% url 'users' %}" {% if current_menu_item == 'users' %}class="active"{% endif %}>
 					<i data-feather="users"></i>
 					{% trans 'Users' %}
@@ -262,19 +266,19 @@
 					{% trans 'Roles' %}
 				</a>
 			{% endif %}
-			{% if perms.cms.manage_organizations %}
+			{% if perms.cms.view_organizations %}
 				<a href="{% url 'organizations' %}" {% if current_menu_item == 'organizations' %}class="active"{% endif %}>
 					<i data-feather="umbrella"></i>
 					{% trans 'Organizations' %}
 				</a>
 			{% endif %}
-			{% if perms.cms.manage_offer_templates %}
+			{% if perms.cms.view_offer_templates %}
 				<a href="{% url 'offer_templates' %}" {% if current_menu_item == 'offer_templates' %}class="active"{% endif %}>
 					<i data-feather="star"></i>
 					{% trans 'Offer templates' %}
 				</a>
 			{% endif %}
-			{% if perms.cms.manage_feedback %}
+			{% if perms.cms.view_technical_feedback %}
 				<a href="{% url 'admin_feedback'%}" {% if current_menu_item == 'admin_feedback' %}class="active"{% endif %}>
 					<i data-feather="thumbs-up"></i>
 					{% trans 'Feedback' %}

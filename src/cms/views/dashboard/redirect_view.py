@@ -1,8 +1,12 @@
+import logging
+
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
+
+logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")
@@ -37,4 +41,4 @@ class RedirectView(TemplateView):
         regions = user.profile.regions
         if regions.exists():
             return redirect("dashboard", region_slug=regions.first().slug)
-        raise PermissionDenied
+        raise PermissionDenied(f"{user.profile!r} is neither staff not a region user")

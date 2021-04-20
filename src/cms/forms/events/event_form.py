@@ -41,7 +41,7 @@ class EventForm(CustomModelForm):
             "icon": IconWidget(),
         }
 
-    def __init__(self, data=None, files=None, instance=None, disabled=False):
+    def __init__(self, *args, **kwargs):
         """
         Initialize form
 
@@ -55,18 +55,12 @@ class EventForm(CustomModelForm):
         :type disabled: bool
         """
         # Instantiate ModelForm
-        super().__init__(data=data, files=files, instance=instance)
+        super().__init__(*args, **kwargs)
 
         if self.instance.id:
             # Initialize BooleanFields based on Event properties
             self.fields["is_all_day"].initial = self.instance.is_all_day
             self.fields["is_recurring"].initial = self.instance.is_recurring
-
-        # If form is disabled because the user has no permissions to edit the page, disable all form fields
-        self.disabled = disabled
-        if disabled:
-            for _, field in self.fields.items():
-                field.disabled = True
 
     # pylint: disable=arguments-differ
     def save(self, region=None, recurrence_rule=None, location=None):

@@ -74,18 +74,12 @@ class PageForm(CustomModelForm):
         # pop kwarg to make sure the super class does not get this param
         self.region = kwargs.pop("region", None)
         language = kwargs.pop("language", None)
-        disabled = kwargs.pop("disabled", None)
 
         # instantiate ModelForm
         super().__init__(*args, **kwargs)
 
         # pass form object to ParentFieldWidget
         self.fields["parent"].widget.form = self
-
-        # If form is disabled because the user has no permissions to edit the page, disable all form fields
-        if disabled:
-            for _, field in self.fields.items():
-                field.disabled = True
 
         if len(args) == 1:
             # dirty hack to remove fields when submitted by POST
@@ -188,7 +182,7 @@ class PageForm(CustomModelForm):
         :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
         """
 
-        permission_edit_page = Permission.objects.get(codename="edit_pages")
+        permission_edit_page = Permission.objects.get(codename="change_page")
         users_without_permissions = get_user_model().objects.exclude(
             Q(groups__permissions=permission_edit_page)
             | Q(user_permissions=permission_edit_page)
@@ -209,7 +203,7 @@ class PageForm(CustomModelForm):
         :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
         """
 
-        permission_publish_page = Permission.objects.get(codename="publish_pages")
+        permission_publish_page = Permission.objects.get(codename="publish_page")
         users_without_permissions = get_user_model().objects.exclude(
             Q(groups__permissions=permission_publish_page)
             | Q(user_permissions=permission_publish_page)

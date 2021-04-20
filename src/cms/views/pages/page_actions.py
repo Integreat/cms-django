@@ -10,7 +10,7 @@ from mptt.exceptions import InvalidMove
 
 from django.contrib import messages
 from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseNotFound, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
@@ -21,7 +21,7 @@ from django.views.decorators.http import require_POST
 
 from backend.settings import WEBAPP_URL
 from ...constants import text_directions
-from ...decorators import region_permission_required, staff_required
+from ...decorators import region_permission_required, permission_required
 from ...forms import PageForm
 from ...models import Page, Language, Region, PageTranslation
 from ...page_xliff_converter import PageXliffHelper, XLIFFS_DIR
@@ -59,8 +59,10 @@ def archive_page(request, page_id, region_slug, language_slug):
     region = Region.get_current_region(request)
     page = get_object_or_404(region.pages, id=page_id)
 
-    if not request.user.has_perm("cms.edit_page", page):
-        raise PermissionDenied
+    if not request.user.has_perm("cms.change_page_object", page):
+        raise PermissionDenied(
+            f"{request.user.profile!r} does not have the permission to archive {page!r}"
+        )
 
     page.explicitly_archived = True
     page.save()
@@ -105,8 +107,10 @@ def restore_page(request, page_id, region_slug, language_slug):
     region = Region.get_current_region(request)
     page = get_object_or_404(region.pages, id=page_id)
 
-    if not request.user.has_perm("cms.edit_page", page):
-        raise PermissionDenied
+    if not request.user.has_perm("cms.change_page_object", page):
+        raise PermissionDenied(
+            f"{request.user.profile!r} does not have the permission to restore {page!r}"
+        )
 
     page.explicitly_archived = False
     page.save()
@@ -145,7 +149,7 @@ def restore_page(request, page_id, region_slug, language_slug):
 
 @login_required
 @region_permission_required
-@permission_required("cms.view_pages", raise_exception=True)
+@permission_required("cms.view_page")
 # pylint: disable=unused-argument
 def view_page(request, page_id, region_slug, language_slug):
     """
@@ -191,7 +195,8 @@ def view_page(request, page_id, region_slug, language_slug):
 
 @require_POST
 @login_required
-@staff_required
+@region_permission_required
+@permission_required("cms.delete_page")
 def delete_page(request, page_id, region_slug, language_slug):
     """
     Delete page object
@@ -233,6 +238,7 @@ def delete_page(request, page_id, region_slug, language_slug):
 
 @login_required
 @region_permission_required
+@permission_required("cms.view_page")
 # pylint: disable=unused-argument
 def export_pdf(request, region_slug, language_slug):
     """
@@ -247,8 +253,6 @@ def export_pdf(request, region_slug, language_slug):
 
     :param language_slug: bcp47 slug of the current language
     :type language_slug: str
-
-    :raises ~django.core.exceptions.PermissionDenied: User login and permissions required
 
     :return: PDF document offered for download
     :rtype: ~django.http.HttpResponse
@@ -293,7 +297,7 @@ def expand_page_translation_id(request, short_url_id):
 
 @login_required
 @region_permission_required
-@permission_required("cms.view_pages", raise_exception=True)
+@permission_required("cms.view_page")
 def download_xliff(request, region_slug, language_slug):
     """
     Download a zip file of XLIFF files.
@@ -352,6 +356,8 @@ def download_xliff(request, region_slug, language_slug):
 
 @require_POST
 @login_required
+@region_permission_required
+@permission_required("cms.change_page")
 # pylint: disable=unused-argument
 def post_translation_state_ajax(request, region_slug):
     """This view is called for manually unseting the translation process
@@ -378,7 +384,7 @@ def post_translation_state_ajax(request, region_slug):
 @require_POST
 @login_required
 @region_permission_required
-@permission_required("cms.edit_pages", raise_exception=True)
+@permission_required("cms.change_page")
 def upload_xliff(request, region_slug, language_slug):
     """
     Upload and import an XLIFF file
@@ -435,7 +441,7 @@ def upload_xliff(request, region_slug, language_slug):
 @require_POST
 @login_required
 @region_permission_required
-@permission_required("cms.edit_pages", raise_exception=True)
+@permission_required("cms.change_page")
 def confirm_xliff_import(request, region_slug, language_slug):
     """
     Confirm a started XLIFF import
@@ -480,7 +486,7 @@ def confirm_xliff_import(request, region_slug, language_slug):
 @require_POST
 @login_required
 @region_permission_required
-@permission_required("cms.edit_pages", raise_exception=True)
+@permission_required("cms.change_page")
 # pylint: disable=too-many-arguments
 def move_page(request, region_slug, language_slug, page_id, target_id, position):
     """
@@ -543,8 +549,8 @@ def move_page(request, region_slug, language_slug, page_id, target_id, position)
 @require_POST
 @login_required
 @region_permission_required
-@permission_required("cms.edit_pages", raise_exception=True)
-@permission_required("cms.grant_page_permissions", raise_exception=True)
+@permission_required("cms.change_page")
+@permission_required("cms.grant_page_permissions")
 # pylint: disable=too-many-branches
 def grant_page_permission_ajax(request):
     """
@@ -575,18 +581,9 @@ def grant_page_permission_ajax(request):
         )
 
         if not page.region.page_permissions_enabled:
-            logger.warning(
-                "Error: Page permissions are not activated for %r",
-                page.region,
+            raise PermissionDenied(
+                f"Page permissions are not activated for {page.region!r}"
             )
-            raise PermissionDenied
-
-        if not request.user.has_perm("cms.grant_page_permissions"):
-            logger.warning(
-                "Error: %r does not have the permission to grant page permissions",
-                request.user.profile,
-            )
-            raise PermissionDenied
 
         if not (request.user.is_superuser or request.user.is_staff):
             # additional checks if requesting user is no superuser or staff
@@ -609,7 +606,7 @@ def grant_page_permission_ajax(request):
 
         if permission == "edit":
             # check, if the user already has this permission
-            if user.has_perm("cms.edit_page", page):
+            if user.has_perm("cms.change_page_object", page):
                 message = _(
                     "Information: The user {user} has this permission already."
                 ).format(user=user.username)
@@ -624,7 +621,7 @@ def grant_page_permission_ajax(request):
                 level_tag = "success"
         elif permission == "publish":
             # check, if the user already has this permission
-            if user.has_perm("cms.publish_page", page):
+            if user.has_perm("cms.publish_page_object", page):
                 message = _(
                     "Information: The user {user} has this permission already."
                 ).format(user=user.username)
@@ -662,8 +659,8 @@ def grant_page_permission_ajax(request):
 @require_POST
 @login_required
 @region_permission_required
-@permission_required("cms.edit_pages", raise_exception=True)
-@permission_required("cms.grant_page_permissions", raise_exception=True)
+@permission_required("cms.change_page")
+@permission_required("cms.grant_page_permissions")
 # pylint: disable=too-many-branches
 def revoke_page_permission_ajax(request):
     """
@@ -694,18 +691,9 @@ def revoke_page_permission_ajax(request):
         )
 
         if not page.region.page_permissions_enabled:
-            logger.warning(
-                "Error: Page permissions are not activated for %r",
-                page.region,
+            raise PermissionDenied(
+                f"Page permissions are not activated for {page.region!r}"
             )
-            raise PermissionDenied
-
-        if not request.user.has_perm("cms.grant_page_permissions"):
-            logger.warning(
-                "Error: %r does not have the permission to revoke page permissions",
-                request.user.profile,
-            )
-            raise PermissionDenied
 
         if not (request.user.is_superuser or request.user.is_staff):
             # additional checks if requesting user is no superuser or staff
@@ -724,7 +712,7 @@ def revoke_page_permission_ajax(request):
                 page.editors.remove(user)
                 page.save()
             # check, if the user has this permission anyway
-            if user.has_perm("cms.edit_page", page):
+            if user.has_perm("cms.change_page_object", page):
                 message = _(
                     "Information: The user {user} has been removed from the editors of this page, "
                     "but has the implicit permission to edit this page anyway."
@@ -741,7 +729,7 @@ def revoke_page_permission_ajax(request):
                 page.publishers.remove(user)
                 page.save()
             # check, if the user already has this permission
-            if user.has_perm("cms.publish_page", page):
+            if user.has_perm("cms.publish_page_object", page):
                 message = _(
                     "Information: The user {user} has been removed from the publishers of this page, "
                     "but has the implicit permission to publish this page anyway."
@@ -776,7 +764,7 @@ def revoke_page_permission_ajax(request):
 
 @login_required
 @region_permission_required
-@permission_required("cms.edit_pages", raise_exception=True)
+@permission_required("cms.view_page")
 # pylint: disable=unused-argument
 def get_page_order_table_ajax(request, region_slug, page_id, parent_id):
     """
@@ -825,7 +813,7 @@ def get_page_order_table_ajax(request, region_slug, page_id, parent_id):
 
 @login_required
 @region_permission_required
-@permission_required("cms.edit_pages", raise_exception=True)
+@permission_required("cms.view_page")
 # pylint: disable=unused-argument
 def get_new_page_order_table_ajax(request, region_slug, parent_id):
     """
@@ -867,12 +855,18 @@ def get_new_page_order_table_ajax(request, region_slug, parent_id):
 
 
 @login_required
-def render_mirrored_page_field(request):
+@region_permission_required
+@permission_required("cms.view_page")
+# pylint: disable=unused-argument
+def render_mirrored_page_field(request, region_slug):
     """
     Retrieve the rendered mirrored page field template
 
     :param request: The current request
     :type request: ~django.http.HttpResponse
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
 
     :return: The rendered mirrored page field
     :rtype: ~django.template.response.TemplateResponse
@@ -897,20 +891,24 @@ def render_mirrored_page_field(request):
 
 @login_required
 @region_permission_required
-@permission_required("cms.edit_pages", raise_exception=True)
+@permission_required("cms.view_page")
 # pylint: disable=unused-argument
 def slugify_ajax(request, region_slug, language_slug):
     """checks the current user input for page title and generates unique slug for permalink
 
     :param request: The current request
     :type request: ~django.http.HttpResponse
+
     :param region_slug: region identifier
     :type region_slug: str
+
     :param language_slug: language slug
     :type language_slug: str
+
     :return: unique page translation slug
     :rtype: str
     """
+
     json_data = json.loads(request.body)
     form_title = slugify(json_data["title"], allow_unicode=True)
     region = Region.get_current_region(request)

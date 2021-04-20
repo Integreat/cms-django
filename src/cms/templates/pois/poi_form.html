@@ -191,7 +191,7 @@
                                 </button>
                             {% endif %}
                         </div>
-                        {% if user.is_superuser or user.is_staff %}
+                    {% if perms.cms.delete_poi %}
                             <div class="pt-2 pb-4">
                                 <span class="block font-bold mb-4">{% trans 'Delete location' %}</span>
                                 <button title="{% trans 'Delete location' %}" class="confirmation-button w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
