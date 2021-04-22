@@ -1,10 +1,12 @@
 """
 This module contains view actions for media related objects.
 """
+import json
+
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import JsonResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 
 from ...decorators import region_permission_required
@@ -95,4 +97,24 @@ def get_directory_content_ajax(request, region_slug):
         map(lambda document: document.serialize(), documents)
     )
 
-    return JsonResponse({"success": True, "data": result})
+    return JsonResponse({"success": True, "data": result}, status=200)
+
+
+@login_required
+@region_permission_required
+@require_POST
+def edit_media_element_ajax(request, region_slug):
+
+    # Check for correct Request. As we are updating a database object, only POST is allowed.
+    if request.method != "POST":
+        return JsonResponse({"error": "Invalid request."}, status=405)
+
+    json_data = json.loads(request.body.decode("utf-8"))
+    media_element_id = json_data["id"]
+    media_element = get_object_or_404(Document, id=media_element_id)
+
+    media_element.name = json_data["name"]
+    media_element.alt_text = json_data["alt_text"]
+    media_element.save()
+
+    return JsonResponse({"success": True}, status=200)

@@ -4,7 +4,7 @@
 {% load thumbnail_tags %}
 {% load static %}
 
-<integreat-media-management data-get-directory-content="{% url 'mediacenter_get_directory_content' region_slug=region.slug %}"></integreat-media-management>
+<integreat-media-management class="w-full h-full" data-edit-media-url="{% url 'mediacenter_edit_url' region_slug=region.slug %}" data-get-directory-content="{% url 'mediacenter_get_directory_content' region_slug=region.slug %}"></integreat-media-management>
 
 <style>
     .modal {

@@ -60,11 +60,11 @@ def get_thumbnail(document, width, height, crop):
                     )
                 else:
                     if width_ratio > height_ratio:
-                        resized_image = image.resize(
+                        thumbnail = image.resize(
                             (width, math.ceil(original_height / width_ratio))
                         )
                     else:
-                        resized_image = image.resize(
+                        thumbnail = image.resize(
                             (math.ceil(original_width / height_ratio), height)
                         )
                 thumbnail.save(thumb_file_path, image.format)

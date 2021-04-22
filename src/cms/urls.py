@@ -385,9 +385,14 @@ urlpatterns = [
                     name="slugify_ajax",
                 ),
                 url(
-                    r"^(?P<region_slug>[-\w]+)/media/directory_content",
+                    r"^(?P<region_slug>[-\w]+)/media/directory_content$",
                     media.get_directory_content_ajax,
                     name="mediacenter_get_directory_content",
+                ),
+                url(
+                    r"^(?P<region_slug>[-\w]+)/media_edit$",
+                    media.edit_media_element_ajax,
+                    name="mediacenter_edit_url",
                 ),
             ]
         ),

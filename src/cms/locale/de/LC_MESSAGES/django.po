@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-18 15:39+0000\n"
+"POT-Creation-Date: 2021-04-22 19:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -379,7 +379,7 @@ msgstr "Das Ende der Veranstaltung kann nicht vor seinem Beginn sein"
 
 #: forms/events/event_translation_form.py:124
 #: forms/imprint/imprint_translation_form.py:111
-#: forms/pages/page_translation_form.py:130
+#: forms/pages/page_translation_form.py:132
 #: forms/pois/poi_translation_form.py:137
 msgid "Use of Heading 1 style not allowed."
 msgstr "Bitte benutzen Sie keine Überschrift 1 in diesem Feld."
@@ -1028,7 +1028,7 @@ msgstr "Sprach-Knoten"
 msgid "name"
 msgstr "Name"
 
-#: models/media/document.py:47 models/media/document.py:95
+#: models/media/document.py:47 models/media/document.py:97
 msgid "document"
 msgstr "Dokument"
 
@@ -1044,7 +1044,7 @@ msgstr "Upload-Datum"
 msgid "The date and time when the document was uploaded"
 msgstr "Das Datum und die Uhrzeit, zu der das Dokument hochgeladen wurde"
 
-#: models/media/document.py:97
+#: models/media/document.py:99
 msgid "documents"
 msgstr "Dokumente"
 

@@ -39,7 +39,7 @@ class Document(models.Model):
         Region, related_name="documents", on_delete=models.CASCADE, null=True
     )
     uploaded_at = models.DateTimeField(auto_now_add=True)
-    description = models.CharField(
+    alt_text = models.CharField(
         max_length=255, blank=True, verbose_name=_("description")
     )
     document = models.FileField(
@@ -78,16 +78,18 @@ class Document(models.Model):
         return os.path.basename(self.physical_path)
 
     def thumbnail_path(self):
-        return get_thumbnail(self, 300, 300, True)
+        return get_thumbnail(self, 300, 300, False)
 
     def serialize(self):
         return {
             "id": self.id,
             "name": self.name,
             "type": "file",
+            "alt_text": self.alt_text,
+            "file_type": self.type,
             "thumbnailPath": self.thumbnail_path(),
             "path": self.physical_path,
-            "uploadedAt": self.uploaded_at,
+            "uploadedAt": self.uploaded_at.strftime("%d/%m/%Y, %H:%M:%S"),
         }
 
     class Meta:

@@ -6,6 +6,7 @@ import EditSidebar from "./component/edit-sidebar";
 
 export interface MediaApiPaths {
   getDirectoryContent: string;
+  editMediaUrl?: string;
 }
 
 interface Props {
@@ -27,7 +28,7 @@ const MediaManagement = (props: Props) => {
         </div>
       </div>
       <div className="flex items-stretch">
-        <div className="flex-1">
+        <div className="flex-1" onClick={() => setEditFile(null)} >
           <DirectoryListing
             parentDirectory={parentDirectory}
             apiEndpoints={props.apiEndpoints}
@@ -35,7 +36,7 @@ const MediaManagement = (props: Props) => {
             setEditFile={setEditFile}
           ></DirectoryListing>
         </div>
-        {editFile && <EditSidebar file={editFile}></EditSidebar>}
+        {editFile && <EditSidebar file={editFile} editMediaEndpoint={props.apiEndpoints.editMediaUrl}></EditSidebar>}
       </div>
     </div>
   );
@@ -45,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll("integreat-media-management").forEach((el) => {
     const apiEndpoints = {
       getDirectoryContent: el.getAttribute("data-get-directory-content"),
+      editMediaUrl: el.getAttribute("data-edit-media-url"),
     };
     render(<MediaManagement apiEndpoints={apiEndpoints} />, el);
   });

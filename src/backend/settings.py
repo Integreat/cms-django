@@ -458,7 +458,7 @@ LOGGING = {
             "handlers": ["console", "logfile"],
             "level": DEPS_LOG_LEVEL,
         },
-        "PIL": {
+        "Pillow": {
             "handlers": ["console", "logfile"],
             "level": DEPS_LOG_LEVEL,
         },

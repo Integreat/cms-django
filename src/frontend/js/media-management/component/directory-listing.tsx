@@ -14,6 +14,8 @@ export interface File {
   id: number;
   name: string;
   path: string;
+  alt_text: string;
+  file_type: string;
   thumbnailPath?: string;
   uploadedAt: Date;
   type: "file";
@@ -66,9 +68,9 @@ export default function DirectoryListing({
     <div className="grid grid-cols-gallery">
       {items.map((item) =>
         item.type === "directory" ? (
-          <DirectoryEntry item={item} onClick={() => setDirectory(item.id)} />
+          <DirectoryEntry item={item} onClick={(e) => {e.stopPropagation(); setDirectory(item.id)}} />
         ) : (
-          <FileEntry item={item} onClick={() => setEditFile(item)} />
+          <FileEntry item={item} onClick={(e) => {e.stopPropagation(); setEditFile(item)}} />
         )
       )}
     </div>

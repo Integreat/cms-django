@@ -11,7 +11,6 @@ export default function DirectoryEntry({ item, onClick }: Props) {
       <Folder className="w-full h-24" />
       <div className="flex-1"></div>
       <span>{item.name}</span>
-      <span></span>
     </div>
   );
 }
