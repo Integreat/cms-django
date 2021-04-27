@@ -1,0 +1,30 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "root",
+      "first_name": "Root",
+      "last_name": "User",
+      "email": "root@root.root",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2019-11-13T09:21:34.960Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "cms.userprofile",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "organization": null,
+      "regions": [],
+      "expert_mode": true
+    }
+  }
+]
