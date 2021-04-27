@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-22 19:23+0000\n"
+"POT-Creation-Date: 2021-04-27 17:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1603,7 +1603,7 @@ msgstr "Übersetzungs-Bericht"
 msgid "Statistics"
 msgstr "Statistiken"
 
-#: templates/_base.html:97 templates/media/media_list.html:17
+#: templates/_base.html:97
 msgid "Media Library"
 msgstr "Medienbibliothek"
 
@@ -2694,7 +2694,7 @@ msgstr "Zuletzt aktualisiert"
 msgid "No languages available yet."
 msgstr "Noch keine Sprachen vorhanden."
 
-#: templates/media/directory_form.html:9 templates/media/media_list.html:23
+#: templates/media/directory_form.html:9
 msgid "Create directory"
 msgstr "Verzeichnis erstellen"
 
@@ -2705,19 +2705,6 @@ msgstr "Absenden"
 #: templates/media/directory_form.html:22 templates/media/media_form.html:15
 msgid "Return"
 msgstr "Zurück"
-
-#: templates/media/media_list.html:26
-msgid "Upload File"
-msgstr "Datei hochladen"
-
-#: templates/media/media_list.html:34
-msgid "Home"
-msgstr "Home"
-
-#: templates/media/media_list.html:49
-#, python-format
-msgid "%(item_count)s Elements"
-msgstr "%(item_count)s Elemente"
 
 #: templates/offer_templates/offer_template_form.html:13
 #, python-format
@@ -3995,6 +3982,14 @@ msgstr "Sprache wurde erfolgreich gespeichert"
 msgid "Language was successfully created"
 msgstr "Sprache wurde erfolgreich erstellt"
 
+#: views/media/media_actions.py:81
+msgid "No file was uploaded"
+msgstr "Es konnte keine Datei hochgeladen werden"
+
+#: views/media/media_actions.py:151
+msgid "Directory already exists"
+msgstr "Ein Ordner mit diesem Namen existiert bereits"
+
 #: views/offer_templates/offer_template_view.py:72
 msgid "Offer template was successfully saved"
 msgstr "Angebots-Vorlage wurde erfolgreich gespeichert"
@@ -4358,6 +4353,16 @@ msgid ""
 msgstr ""
 "Ein Benutzer muss entweder Mitarbeiter/Super-Administrator sein, oder "
 "mindestens einer Region zugewiesen sein."
+
+#~ msgid "Upload File"
+#~ msgstr "Datei hochladen"
+
+#~ msgid "Home"
+#~ msgstr "Home"
+
+#, python-format
+#~ msgid "%(item_count)s Elements"
+#~ msgstr "%(item_count)s Elemente"
 
 #~ msgid "Upload new media file"
 #~ msgstr "Neue Mediendatei hochladen"

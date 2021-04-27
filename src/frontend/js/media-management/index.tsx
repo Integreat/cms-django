@@ -1,12 +1,14 @@
 import { render } from "preact";
-import { useState } from "preact/hooks";
-import Button from "./component/button";
-import DirectoryListing, { File } from "./component/directory-listing";
-import EditSidebar from "./component/edit-sidebar";
-
+import Router from "preact-router";
+import { createHashHistory } from "history";
+import Listing from "./listing";
+import CreateDirectory from "./create-directory";
+import UploadFile from "./upload-file";
 export interface MediaApiPaths {
   getDirectoryContent: string;
-  editMediaUrl?: string;
+  editMediaUrl: string;
+  createDirectory: string;
+  uploadFile: string;
 }
 
 interface Props {
@@ -14,31 +16,13 @@ interface Props {
 }
 
 const MediaManagement = (props: Props) => {
-  const [parentDirectory, setParentDirectory] = useState<number | null>(null);
-  const [editFile, setEditFile] = useState<File|null>(null);
-
   return (
-    <div>
-      <div className="flex flex-wrap items-center">
-        <h2 className="heading font-normal mb-2 p-2">Medienbibliothek</h2>
-        <div className="flex-1"></div>
-        <div className="flex flex-wrap justify-start">
-          <Button label="Verzeichnis erstellen" />
-          <Button label="Datei hochladen" />
-        </div>
-      </div>
-      <div className="flex items-stretch">
-        <div className="flex-1" onClick={() => setEditFile(null)} >
-          <DirectoryListing
-            parentDirectory={parentDirectory}
-            apiEndpoints={props.apiEndpoints}
-            setDirectory={setParentDirectory}
-            setEditFile={setEditFile}
-          ></DirectoryListing>
-        </div>
-        {editFile && <EditSidebar file={editFile} editMediaEndpoint={props.apiEndpoints.editMediaUrl}></EditSidebar>}
-      </div>
-    </div>
+    <Router history={createHashHistory() as any}>
+      <Listing path="" {...props} />
+      <Listing path="/listing/:parentDirectory" {...props} />
+      <CreateDirectory path="/create_directory/:parentDirectory" {...props} />
+      <UploadFile path="/upload_file/:parentDirectory" {...props} />
+    </Router>
   );
 };
 
@@ -47,6 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const apiEndpoints = {
       getDirectoryContent: el.getAttribute("data-get-directory-content"),
       editMediaUrl: el.getAttribute("data-edit-media-url"),
+      createDirectory: el.getAttribute("data-create-directory-url"),
+      uploadFile: el.getAttribute("data-upload-file-url"),
     };
     render(<MediaManagement apiEndpoints={apiEndpoints} />, el);
   });

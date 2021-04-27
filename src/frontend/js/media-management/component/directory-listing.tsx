@@ -1,3 +1,4 @@
+import { Link } from "preact-router";
 import { useEffect, useState } from "preact/hooks";
 import { MediaApiPaths } from "..";
 import DirectoryEntry from "./directory-entry";
@@ -6,8 +7,7 @@ import FileEntry from "./file-entry";
 interface Props {
   parentDirectory: number | null;
   apiEndpoints: MediaApiPaths;
-  setDirectory: (directoryId: number) => void;
-  setEditFile: (file: File)=>void;
+  setEditFile: (file: File) => void;
 }
 
 export interface File {
@@ -33,7 +33,6 @@ type MediaLibraryEntry = File | Directory;
 export default function DirectoryListing({
   parentDirectory,
   apiEndpoints,
-  setDirectory,
   setEditFile,
 }: Props) {
   const [error, setError] = useState(null);
@@ -41,14 +40,13 @@ export default function DirectoryListing({
   const [items, setItems] = useState<MediaLibraryEntry[]>([]);
 
   useEffect(() => {
-    console.log(parentDirectory);
     (async () => {
       setItems([]);
       setIsLoaded(false);
       try {
         let url = apiEndpoints.getDirectoryContent;
-        if(parentDirectory) {
-          url += '?directory=' + parentDirectory;
+        if (parentDirectory) {
+          url += "?directory=" + parentDirectory;
         }
         const result = await fetch(url);
         const data = await result.json();
@@ -68,9 +66,17 @@ export default function DirectoryListing({
     <div className="grid grid-cols-gallery">
       {items.map((item) =>
         item.type === "directory" ? (
-          <DirectoryEntry item={item} onClick={(e) => {e.stopPropagation(); setDirectory(item.id)}} />
+          <Link href={`/listing/${item.id}`}>
+            <DirectoryEntry item={item} />
+          </Link>
         ) : (
-          <FileEntry item={item} onClick={(e) => {e.stopPropagation(); setEditFile(item)}} />
+          <FileEntry
+            item={item}
+            onClick={(e) => {
+              e.stopPropagation();
+              setEditFile(item);
+            }}
+          />
         )
       )}
     </div>

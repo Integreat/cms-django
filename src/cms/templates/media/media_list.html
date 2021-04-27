@@ -4,100 +4,12 @@
 {% load thumbnail_tags %}
 {% load static %}
 
-<integreat-media-management class="w-full h-full" data-edit-media-url="{% url 'mediacenter_edit_url' region_slug=region.slug %}" data-get-directory-content="{% url 'mediacenter_get_directory_content' region_slug=region.slug %}"></integreat-media-management>
+<integreat-media-management 
+    class="w-full h-full" 
+    data-edit-media-url="{% url 'mediacenter_edit_url' region_slug=region.slug %}"
+    data-get-directory-content="{% url 'mediacenter_get_directory_content' region_slug=region.slug %}" 
+    data-create-directory-url="{% url 'mediacenter_create_directory' region_slug=region.slug %}"
+    data-upload-file-url="{% url 'mediacenter_upload_file' region_slug=region.slug %}"
+></integreat-media-management>
 
-<style>
-    .modal {
-        transition: opacity 0.25s ease;
-    }
-</style>
-<div class="flex flex-wrap items-center">
-    <div class="p-2">
-        <div">
-            <h2 class="heading font-normal mb-2">{% trans 'Media Library' %}</h2>
-        </div>
-        <div class="flex-1"></div>
-        {% if perms.cms.manage_documents %}
-            <div class="flex flex-wrap justify-start">
-                <a href="{% url 'create_directory' region_slug=region.slug directory_id=directory_id%}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2">
-                    {% trans 'Create directory' %}
-                </a>
-                <a href="{% url 'edit_file' document_id='0' region_slug=region.slug directory_id=directory_id %}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-	                {% trans 'Upload File' %}
-                </a>
-            </div>
-        {% endif %}
-    </div>
-</div>
-
-<ol class="list-reset flex text-grey-dark m-3">
-    <li><a href="{% url 'media' region_slug=region.slug directory_id=0 %}" class="text-blue font-bold">{% trans 'Home' %}</a></li>
-    {% for dir in breadcrumb %}
-    <li><span class="mx-2">/</span></li>
-    <li><a class="text-blue font-bold" href="{% url 'media' region_slug=region.slug directory_id=dir.id %}">{{dir.name}}</a></li>
-    {% endfor %}
-</ol>
-
-<div class="grid grid-cols-gallery">
-
-    {% for folder in directory %}
-        <a class="flex flex-col items-center h-44" href="{% url 'media' region_slug=region.slug directory_id=folder.id %}">
-            <i class="w-full h-24" data-feather="folder"></i>
-            <div class="flex-1"></div>
-            <span> {{ folder.name }} </span>
-            {% with item_count=folder.subdirectories.count|add:folder.documents.count %}
-            <span>{% blocktrans %}{{ item_count }} Elements{% endblocktrans %}</span>
-            {% endwith %}
-        </a>
-    {% endfor %}
-
-    {% for obj in documents %}
-    <div class="">
-        <div class="flex flex-col items-center modal-activator h-44">
-            {% with thumbnail_path=obj.thumbnail_path %}
-                {% if thumbnail_path %}
-                    <img class="h-24" src="{{thumbnail_path}}" />
-                {% else %}
-                    <i class="h-24 w-full" data-feather="file"></i>
-                {% endif %}
-            {% endwith %}
-            <div class="flex-1"></div>
-            <span class="truncate max-w-full"> {{obj.name}} </span>
-            <span> {{obj.uploaded_at}} </span>
-        </div>
-        <!-- Document editing Popup -->
-        <div class="modal opacity-0 pointer-events-none absolute w-full h-full top-0 left-0 flex items-center justify-center">
-            <div class="modal-overlay absolute w-full h-full bg-black opacity-25 top-0 left-0 cursor-pointer"></div>
-            <div class="absolute w-3/4 h-auto bg-white rounded-sm shadow-lg fles items-center justify-center">
-                <div class="flex-col w-full flex">
-                    <div class="w-2/3 items-center justify-between">
-                        <img src="/media/{{obj.file.path}}"> </img>
-                    </div>
-                    <div class="w-1/3">
-                        <span> {{obj.name}} </span>
-                        <span> {{obj.uploaded_at}} </span>
-                    </div>
-                </div>
-                hey 
-            </div>
-        </div>
-    </div>
-    {% endfor %}
-
-</div>
-<script>
-    /*const elements = document.querySelectorAll('.modal-activator');
-    function toggleModal(element) {
-        const modal = element.querySelector('.modal');
-        modal.classList.toggle('opacity-0');
-        modal.classList.toggle('pointer-events-none');
-    }
-    elements.forEach(element => {
-        element.addEventListener('click', () => toggleModal(element.parentElement));
-        const overlay = element.parentElement.querySelector('.modal-overlay');
-        overlay.addEventListener('click', () => toggleModal(element.parentElement));
-    });
-*/
-
-</script>
 {% endblock %}

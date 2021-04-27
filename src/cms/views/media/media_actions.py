@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404
+from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.http import require_POST
 
 from ...decorators import region_permission_required
@@ -53,10 +54,15 @@ def delete_file(request, document_id, region_slug):
     )
 
 
+@require_POST
 @login_required
 @region_permission_required
-def upload_file(request, region_slug, directory_id):
+def upload_file_ajax(request, region_slug):
     region = Region.objects.get(slug=region_slug)
+
+    directory_id = request.POST.get("parentDirectory", 0)
+    print(directory_id)
+    directory = None
 
     if int(directory_id) != 0:
         directory = Directory.objects.get(id=directory_id)
@@ -66,12 +72,13 @@ def upload_file(request, region_slug, directory_id):
     if "upload" in request.FILES:
         document = Document()
         document.region = region
-        document.path = directory
+        document.parent_directory = directory
+        document.name = request.FILES["upload"].name
         attach_file(document, request.FILES["upload"])
         document.save()
         return JsonResponse({"success": True})
 
-    return JsonResponse({"success": False, "error": "No file was uploaded"})
+    return JsonResponse({"success": False, "error": _("No file was uploaded")})
 
 
 @login_required
@@ -118,3 +125,35 @@ def edit_media_element_ajax(request, region_slug):
     media_element.save()
 
     return JsonResponse({"success": True}, status=200)
+
+
+@login_required
+@region_permission_required
+@require_POST
+def create_directory_ajax(request, region_slug):
+    region = Region.objects.get(slug=region_slug)
+    # Check for correct Request. As we are updating a database object, only POST is allowed.
+    if request.method != "POST":
+        return JsonResponse({"error": "Invalid request."}, status=405)
+
+    json_data = json.loads(request.body.decode("utf-8"))
+    if json_data["parentDirectory"] != 0:
+        parent_directory = get_object_or_404(Directory, id=json_data["parentDirectory"])
+
+        if parent_directory.region != region:
+            raise PermissionError
+    else:
+        json_data["parentDirectory"] = None
+
+    if Directory.objects.filter(
+        parent=json_data["parentDirectory"], name=json_data["directoryName"]
+    ).exists():
+        return JsonResponse({"error": _("Directory already exists")}, status=400)
+
+    new_directory = Directory()
+    new_directory.name = json_data["directoryName"]
+    new_directory.parent = parent_directory
+    new_directory.region = region
+    new_directory.save()
+
+    return JsonResponse({"success": True})

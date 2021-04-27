@@ -394,6 +394,16 @@ urlpatterns = [
                     media.edit_media_element_ajax,
                     name="mediacenter_edit_url",
                 ),
+                url(
+                    r"^(?P<region_slug>[-\w]+)/media_edit/create_directory$",
+                    media.create_directory_ajax,
+                    name="mediacenter_create_directory",
+                ),
+                url(
+                    r"^(?P<region_slug>[-\w]+)/media_edit/upload_file$",
+                    media.upload_file_ajax,
+                    name="mediacenter_upload_file",
+                ),
             ]
         ),
     ),

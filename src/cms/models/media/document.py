@@ -31,7 +31,7 @@ class Document(models.Model):
     physical_path = models.CharField(max_length=255, blank=False)
     type = models.CharField(max_length=255, blank=False)
 
-    name = models.CharField(max_length=255, blank=True, verbose_name=_("name"))
+    name = models.CharField(max_length=255, blank=False, verbose_name=_("name"))
     parent_directory = models.ForeignKey(
         Directory, related_name="documents", on_delete=models.PROTECT, null=True
     )

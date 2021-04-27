@@ -3,11 +3,14 @@ import { Directory } from "./directory-listing";
 
 interface Props {
   item: Directory;
-  onClick: (event: MouseEvent) => void
+  onClick?: (event: MouseEvent) => void;
 }
 export default function DirectoryEntry({ item, onClick }: Props) {
   return (
-    <div className="flex flex-col items-center h-44 cursor-pointer" onClick={onClick}>
+    <div
+      className="flex flex-col items-center h-44 cursor-pointer"
+      onClick={onClick}
+    >
       <Folder className="w-full h-24" />
       <div className="flex-1"></div>
       <span>{item.name}</span>
