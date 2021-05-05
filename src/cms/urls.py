@@ -18,6 +18,7 @@ from .views import (
     offer_templates,
     language_tree,
     languages,
+    linkcheck,
     media,
     organizations,
     imprint,
@@ -914,6 +915,7 @@ urlpatterns = [
                         ]
                     ),
                 ),
+                # url(r"^linkcheck/", linkcheck.linkcheck, name="linkcheck"),
             ]
         ),
     ),

@@ -24,6 +24,7 @@ from django.contrib import admin
 urlpatterns = [
     url(r"^api/", include("api.urls")),
     url(r"^i18n/", include("django.conf.urls.i18n")),
+    url(r"^admin/linkcheck/", include("linkcheck.urls")),
 ]
 
 # The admin/endpoint is only activated if the system is in debug mode.
