@@ -154,15 +154,15 @@ INSTALLED_APPS = [
     "corsheaders",
     "widget_tweaks",
     "easy_thumbnails",
-    "filer",
+    # "filer",
     "mptt",
     "rules.apps.AutodiscoverRulesConfig",
     "linkcheck",
 ]
 
 # The default Django Admin application will only be activated if the system is in debug mode.
-if DEBUG:
-    INSTALLED_APPS.append("django.contrib.admin")
+# if DEBUG:
+#     INSTALLED_APPS.append("django.contrib.admin")
 
 #: Activated middlewares (see :setting:`django:MIDDLEWARE`)
 MIDDLEWARE = [
