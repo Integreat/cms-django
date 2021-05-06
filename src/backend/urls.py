@@ -18,7 +18,7 @@ For more information on this file, see :doc:`topics/http/urls`.
 """
 from django.conf.urls import include, url
 from django.conf import settings
-# from django.contrib import admin
+from django.contrib import admin
 
 
 urlpatterns = [
@@ -28,8 +28,8 @@ urlpatterns = [
 ]
 
 # The admin/endpoint is only activated if the system is in debug mode.
-# if settings.DEBUG:
-#     urlpatterns.append(url(r"^admin/", admin.site.urls))
+if settings.DEBUG:
+    urlpatterns.append(url(r"^admin/", admin.site.urls))
 
 # Unfortunatly we need to do this in such way, as the admin endpoint needs to be added before the endpoints of the other apps.
 urlpatterns += [
