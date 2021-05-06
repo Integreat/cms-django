@@ -7,6 +7,7 @@ For more information on this file, see :doc:`topics/http/urls`.
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.conf import settings as django_settings
+from django.urls import reverse_lazy
 from django.views.generic import RedirectView
 
 from .views import (
@@ -915,7 +916,8 @@ urlpatterns = [
                         ]
                     ),
                 ),
-                # url(r"^linkcheck/", linkcheck.linkcheck, name="linkcheck"),
+                url(r"^linkcheck/$", linkcheck.LinkListRedirectBiew.as_view()),
+                url(r"^linkcheck/(?P<link_filter>[-\w]+)/$", linkcheck.LinkListView.as_view(), name="linkcheck"),
             ]
         ),
     ),
