@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-27 17:50+0000\n"
+"POT-Creation-Date: 2021-05-07 21:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -688,7 +688,7 @@ msgstr "Status"
 msgid "title"
 msgstr "Titel"
 
-#: models/events/event_translation.py:44 models/media/document.py:43
+#: models/events/event_translation.py:44 models/media/document.py:49
 msgid "description"
 msgstr "Beschreibung"
 
@@ -1021,30 +1021,26 @@ msgstr "Sprach-Knoten"
 msgid "language tree nodes"
 msgstr "Sprach-Knoten"
 
-#: models/media/document.py:34 models/offers/offer_template.py:16
+#: models/media/document.py:36 models/offers/offer_template.py:16
 #: models/push_notifications/push_notification_channel.py:10
 #: models/regions/region.py:72 models/users/organization.py:11
 #: models/users/user_mfa.py:17
 msgid "name"
 msgstr "Name"
 
-#: models/media/document.py:47 models/media/document.py:97
-msgid "document"
-msgstr "Dokument"
-
-#: models/media/document.py:48
-msgid "The actual document file"
-msgstr "Die eigentliche Dokumentendatei"
-
-#: models/media/document.py:52
+#: models/media/document.py:54
 msgid "uploaded date"
 msgstr "Upload-Datum"
 
-#: models/media/document.py:53
+#: models/media/document.py:55
 msgid "The date and time when the document was uploaded"
 msgstr "Das Datum und die Uhrzeit, zu der das Dokument hochgeladen wurde"
 
 #: models/media/document.py:99
+msgid "document"
+msgstr "Dokument"
+
+#: models/media/document.py:101
 msgid "documents"
 msgstr "Dokumente"
 
@@ -1603,7 +1599,7 @@ msgstr "Übersetzungs-Bericht"
 msgid "Statistics"
 msgstr "Statistiken"
 
-#: templates/_base.html:97
+#: templates/_base.html:97 templates/_base.html:251
 msgid "Media Library"
 msgstr "Medienbibliothek"
 
@@ -1645,7 +1641,7 @@ msgstr "Alle Orte"
 msgid "Create location"
 msgstr "Ort erstellen"
 
-#: templates/_base.html:163 templates/_base.html:251
+#: templates/_base.html:163 templates/_base.html:257
 msgid "Users"
 msgstr "Benutzer"
 
@@ -1658,7 +1654,7 @@ msgstr "Alle Benutzer"
 msgid "Create user"
 msgstr "Benutzer erstellen"
 
-#: templates/_base.html:178 templates/_base.html:275
+#: templates/_base.html:178 templates/_base.html:281
 #: templates/feedback/region_feedback_list.html:11
 msgid "Feedback"
 msgstr "Feedback"
@@ -1692,7 +1688,7 @@ msgstr "Alle Sprach-Knoten"
 msgid "Create language tree node"
 msgstr "Sprach-Knoten hinzufügen"
 
-#: templates/_base.html:229 templates/_base.html:280
+#: templates/_base.html:229 templates/_base.html:286
 #: templates/push_notifications/push_notification_form.html:75
 msgid "Settings"
 msgstr "Einstellungen"
@@ -1709,15 +1705,15 @@ msgstr "Regionen"
 msgid "Languages"
 msgstr "Sprachen"
 
-#: templates/_base.html:257
+#: templates/_base.html:263
 msgid "Roles"
 msgstr "Rollen"
 
-#: templates/_base.html:263
+#: templates/_base.html:269
 msgid "Organizations"
 msgstr "Organisationen"
 
-#: templates/_base.html:269
+#: templates/_base.html:275
 msgid "Offer templates"
 msgstr "Angebots-Vorlagen"
 
@@ -2693,18 +2689,6 @@ msgstr "Zuletzt aktualisiert"
 #: templates/languages/language_list.html:41
 msgid "No languages available yet."
 msgstr "Noch keine Sprachen vorhanden."
-
-#: templates/media/directory_form.html:9
-msgid "Create directory"
-msgstr "Verzeichnis erstellen"
-
-#: templates/media/directory_form.html:19 templates/media/media_form.html:12
-msgid "Submit"
-msgstr "Absenden"
-
-#: templates/media/directory_form.html:22 templates/media/media_form.html:15
-msgid "Return"
-msgstr "Zurück"
 
 #: templates/offer_templates/offer_template_form.html:13
 #, python-format
@@ -3982,11 +3966,11 @@ msgstr "Sprache wurde erfolgreich gespeichert"
 msgid "Language was successfully created"
 msgstr "Sprache wurde erfolgreich erstellt"
 
-#: views/media/media_actions.py:81
+#: views/media/media_actions.py:45
 msgid "No file was uploaded"
 msgstr "Es konnte keine Datei hochgeladen werden"
 
-#: views/media/media_actions.py:151
+#: views/media/media_actions.py:167
 msgid "Directory already exists"
 msgstr "Ein Ordner mit diesem Namen existiert bereits"
 
@@ -4353,6 +4337,18 @@ msgid ""
 msgstr ""
 "Ein Benutzer muss entweder Mitarbeiter/Super-Administrator sein, oder "
 "mindestens einer Region zugewiesen sein."
+
+#~ msgid "Create directory"
+#~ msgstr "Verzeichnis erstellen"
+
+#~ msgid "Submit"
+#~ msgstr "Absenden"
+
+#~ msgid "Return"
+#~ msgstr "Zurück"
+
+#~ msgid "The actual document file"
+#~ msgstr "Die eigentliche Dokumentendatei"
 
 #~ msgid "Upload File"
 #~ msgstr "Datei hochladen"

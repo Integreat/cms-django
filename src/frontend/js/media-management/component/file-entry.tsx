@@ -10,7 +10,7 @@ export default function FileEntry({ item, onClick }: Props) {
   return (
     <div className="flex flex-col items-center h-44 cursor-pointer" onClick={onClick}>
       {item.thumbnailPath ? (
-        <img className="h-full w-3/4 object-cover" src={item.thumbnailPath} />
+        <img className="h-24 w-3/4 object-contain" src={item.thumbnailPath} />
       ) : (
         <FileIcon className="w-full h-24" />
       )}

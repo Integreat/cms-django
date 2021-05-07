@@ -83,6 +83,7 @@ urlpatterns = [
             ]
         ),
     ),
+    url(r"^media/$", media.AdminMediaListView.as_view(), name="documents"),
     url(
         r"^languages/",
         include(
@@ -403,6 +404,46 @@ urlpatterns = [
                     r"^(?P<region_slug>[-\w]+)/media_edit/upload_file$",
                     media.upload_file_ajax,
                     name="mediacenter_upload_file",
+                ),
+                url(
+                    r"^(?P<region_slug>[-\w]+)/media_edit/delete_file$",
+                    media.delete_file_ajax,
+                    name="mediacenter_delete_file",
+                ),
+                url(
+                    r"^(?P<region_slug>[-\w]+)/media_edit/directory_path$",
+                    media.get_directory_path_ajax,
+                    name="mediacenter_directory_path",
+                ),
+                url(
+                    r"^media/directory_content$",
+                    media.get_directory_content_ajax,
+                    name="mediacenter_admin_get_directory_content",
+                ),
+                url(
+                    r"^media_edit$",
+                    media.edit_media_element_ajax,
+                    name="mediacenter_admin_edit_url",
+                ),
+                url(
+                    r"^media_edit/create_directory$",
+                    media.create_directory_ajax,
+                    name="mediacenter_admin_create_directory",
+                ),
+                url(
+                    r"^media_edit/upload_file$",
+                    media.upload_file_ajax,
+                    name="mediacenter_admin_upload_file",
+                ),
+                url(
+                    r"^media_edit/delete_file$",
+                    media.delete_file_ajax,
+                    name="mediacenter_admin_delete_file",
+                ),
+                url(
+                    r"^media_edit/directory_path$",
+                    media.get_directory_path_ajax,
+                    name="mediacenter_admin_directory_path",
                 ),
             ]
         ),
@@ -847,41 +888,7 @@ urlpatterns = [
                     name="statistics",
                 ),
                 url(r"^settings/$", settings.SettingsView.as_view(), name="settings"),
-                url(
-                    r"^media/(?P<directory_id>[0-9]+)/",
-                    include(
-                        [
-                            url(r"^$", media.MediaListView.as_view(), name="media"),
-                            url(
-                                r"^create_directory$",
-                                media.CreateDirectoryView.as_view(),
-                                name="create_directory",
-                            ),
-                            url(
-                                r"^(?P<document_id>[0-9]+)/",
-                                include(
-                                    [
-                                        url(
-                                            r"^new$",
-                                            media.MediaEditView.as_view(),
-                                            name="new_upload_file",
-                                        ),
-                                        url(
-                                            r"^edit$",
-                                            media.MediaEditView.as_view(),
-                                            name="edit_file",
-                                        ),
-                                        url(
-                                            r"^delete$",
-                                            media.delete_file,
-                                            name="delete_file",
-                                        ),
-                                    ]
-                                ),
-                            ),
-                        ]
-                    ),
-                ),
+                url(r"^media/$", media.MediaListView.as_view(), name="media"),
                 url(
                     r"^users/",
                     include(

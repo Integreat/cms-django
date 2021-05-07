@@ -18,50 +18,12 @@ from ...utils.media_utils import attach_file, delete_document
 @require_POST
 @login_required
 @region_permission_required
-# pylint: disable=unused-argument
-def delete_file(request, document_id, region_slug):
-    """
-    This view deletes a file both from the database and the file system.
-
-    :param request: The current request
-    :type request: ~django.http.HttpResponse
-
-    :param document_id: The id of the document which is being deleted
-    :type document_id: int
-
-    :param region_slug: The slug of the region to which this document belongs
-    :type region_slug: str
-
-    :return: A redirection to the media library
-    :rtype: ~django.http.HttpResponseRedirect
-    """
-    region = Region.get_current_region(request)
-
-    if request.method == "POST":
-        document = Document.objects.get(pk=document_id)
-        if document.region != region:
-            raise PermissionError
-        delete_document(document)
-
-    directory_id = 0
-    try:
-        directory_id = document.directory.id
-    except Directory.DoesNotExist:
-        pass
-
-    return redirect(
-        "media", **{"region_slug": region.slug, "directory_id": directory_id}
-    )
-
-
-@require_POST
-@login_required
-@region_permission_required
-def upload_file_ajax(request, region_slug):
-    region = Region.objects.get(slug=region_slug)
+def upload_file_ajax(request, region_slug=None):
+    region = None
+    if region_slug is not None:
+        region = Region.objects.get(slug=region_slug)
 
     directory_id = request.POST.get("parentDirectory", 0)
-    print(directory_id)
     directory = None
 
     if int(directory_id) != 0:
@@ -70,6 +32,8 @@ def upload_file_ajax(request, region_slug):
             raise PermissionError
 
     if "upload" in request.FILES:
+        # TODO: Make sure only allowed files are uploaded by checking mime type here:
+        print(request.FILES["upload"].content_type)
         document = Document()
         document.region = region
         document.parent_directory = directory
@@ -83,14 +47,58 @@ def upload_file_ajax(request, region_slug):
 
 @login_required
 @region_permission_required
-def get_directory_content_ajax(request, region_slug):
-    region = Region.objects.get(slug=region_slug)
+def delete_file_ajax(request, region_slug=None):
+    region = None
+    if region_slug is not None:
+        region = Region.objects.get(slug=region_slug)
+
+    # Check for correct Request. As we are updating a database object, only POST is allowed.
+    if request.method != "POST":
+        return JsonResponse({"error": "Invalid request."}, status=405)
+
+    json_data = json.loads(request.body.decode("utf-8"))
+    media_element_id = json_data["id"]
+    media_element = get_object_or_404(Document, id=media_element_id)
+    if media_element.region != region:
+        raise PermissionError
+
+    media_element.delete()
+
+    return JsonResponse({"success": True}, status=200)
+
+
+@login_required
+@region_permission_required
+def get_directory_path_ajax(request, region_slug=None):
+    region = None
+    if region_slug is not None:
+        region = Region.objects.get(slug=region_slug)
+
+    directory_id = request.GET.get("directory")
+    directory = Directory.objects.get(id=directory_id)
+    if directory.region is not None and directory.region != region:
+        raise PermissionError
+
+    directory_path = []
+    while directory is not None:
+        directory_path.insert(0, directory.serialize())
+        directory = directory.parent
+
+    return JsonResponse({"success": True, "data": directory_path}, status=200)
+
+
+@login_required
+@region_permission_required
+def get_directory_content_ajax(request, region_slug=None):
+    region = None
+    if region_slug is not None:
+        region = Region.objects.get(slug=region_slug)
     directory_id = request.GET.get("directory")
 
     directory = None
     if directory_id is not None and int(directory_id) != 0:
         directory = Directory.objects.get(id=directory_id)
-        if directory.region != region:
+        if directory.region is not None and directory.region != region:
             raise PermissionError
 
     documents = Document.objects.filter(
@@ -110,7 +118,10 @@ def get_directory_content_ajax(request, region_slug):
 @login_required
 @region_permission_required
 @require_POST
-def edit_media_element_ajax(request, region_slug):
+def edit_media_element_ajax(request, region_slug=None):
+    region = None
+    if region_slug is not None:
+        region = Region.objects.get(slug=region_slug)
 
     # Check for correct Request. As we are updating a database object, only POST is allowed.
     if request.method != "POST":
@@ -119,6 +130,8 @@ def edit_media_element_ajax(request, region_slug):
     json_data = json.loads(request.body.decode("utf-8"))
     media_element_id = json_data["id"]
     media_element = get_object_or_404(Document, id=media_element_id)
+    if media_element.region != region:
+        raise PermissionError
 
     media_element.name = json_data["name"]
     media_element.alt_text = json_data["alt_text"]
@@ -130,14 +143,17 @@ def edit_media_element_ajax(request, region_slug):
 @login_required
 @region_permission_required
 @require_POST
-def create_directory_ajax(request, region_slug):
-    region = Region.objects.get(slug=region_slug)
+def create_directory_ajax(request, region_slug=None):
+    region = None
+    if region_slug is not None:
+        region = Region.objects.get(slug=region_slug)
     # Check for correct Request. As we are updating a database object, only POST is allowed.
     if request.method != "POST":
         return JsonResponse({"error": "Invalid request."}, status=405)
 
     json_data = json.loads(request.body.decode("utf-8"))
-    if json_data["parentDirectory"] != 0:
+    parent_directory = None
+    if int(json_data["parentDirectory"]) is not 0:
         parent_directory = get_object_or_404(Directory, id=json_data["parentDirectory"])
 
         if parent_directory.region != region:

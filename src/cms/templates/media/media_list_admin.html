@@ -1,0 +1,18 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% block content %}
+{% load thumbnail_tags %}
+{% load static %}
+
+<integreat-media-management 
+    class="w-full h-full" 
+    data-edit-media-url="{% url 'mediacenter_admin_edit_url' %}"
+    data-get-directory-content="{% url 'mediacenter_admin_get_directory_content' %}" 
+    data-create-directory-url="{% url 'mediacenter_admin_create_directory' %}"
+    data-upload-file-url="{% url 'mediacenter_admin_upload_file' %}"
+    data-delete-file-url="{% url 'mediacenter_admin_delete_file' %}"
+    data-directory-path-url="{% url 'mediacenter_admin_directory_path' %}"
+    data-enable-global-edit
+></integreat-media-management>
+
+{% endblock %}

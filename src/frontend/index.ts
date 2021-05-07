@@ -46,6 +46,7 @@ import "./js/mfa/login.ts";
 import "./js/analytics/statistics-charts.ts";
 
 import "./js/media-management/index.tsx";
+import "./js/media-management/select-media.tsx";
 
 window.addEventListener('load',() => {
     feather.replace({ class: 'inline-block' });

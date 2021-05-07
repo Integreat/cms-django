@@ -92,12 +92,12 @@
 	        </a>
 			{% endif %}
 			<div class="{% if current_menu_item == 'media' %}active{% elif current_menu_item == 'media_upload' %}active{% endif %}">
-				<a href="{% url 'media' region_slug=region.slug directory_id=0  %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat">
+				<a href="{% url 'media' region_slug=region.slug %}" class="relative block text-gray-300 hover:text-gray-600 hover:bg-integreat">
 					<i data-feather='file'></i>
 					{% trans 'Media Library' %}
 				</a>
 				<div class="dropdown-container">
-					<a href="{% url 'media' region_slug=region.slug directory_id=0 %}" class="{% if current_menu_item == 'media' %}active{% endif %}">
+					<a href="{% url 'media' region_slug=region.slug %}" class="{% if current_menu_item == 'media' %}active{% endif %}">
 						{% trans 'All media files' %}
 					</a>
 				</div>
@@ -243,6 +243,12 @@
 				<a href="{% url 'languages' %}" {% if current_menu_item == 'languages' %}class="active"{% endif %}>
 					<i data-feather="flag"></i>
 					{% trans 'Languages' %}
+				</a>
+			{% endif %}
+			{% if perms.cms.manage_documents %}
+				<a href="{% url 'documents' %}" {% if current_menu_item == 'documents' %}class="active"{% endif %}>
+					<i data-feather="file"></i>
+					{% trans 'Media Library' %}
 				</a>
 			{% endif %}
 			{% if perms.cms.manage_admin_users %}

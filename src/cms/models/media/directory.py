@@ -23,7 +23,11 @@ class Directory(models.Model):
 
     name = models.CharField(max_length=255, blank=False)
     region = models.ForeignKey(
-        Region, related_name="media_directories", on_delete=models.CASCADE, null=True
+        Region,
+        related_name="media_directories",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
     )
     parent = models.ForeignKey(
         "self",
@@ -34,7 +38,12 @@ class Directory(models.Model):
     )
 
     def serialize(self):
-        return {"type": "directory", "id": self.id, "name": self.name}
+        return {
+            "type": "directory",
+            "id": self.id,
+            "name": self.name,
+            "isGlobal": self.region is None,
+        }
 
     def __str__(self):
         """

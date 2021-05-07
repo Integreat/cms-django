@@ -3,6 +3,8 @@ import os
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from backend.settings import MEDIA_URL
+
 from ..regions.region import Region
 from .directory import Directory
 from ...utils.media_utils import get_thumbnail
@@ -36,17 +38,17 @@ class Document(models.Model):
         Directory, related_name="documents", on_delete=models.PROTECT, null=True
     )
     region = models.ForeignKey(
-        Region, related_name="documents", on_delete=models.CASCADE, null=True
+        Region,
+        related_name="documents",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
     )
     uploaded_at = models.DateTimeField(auto_now_add=True)
     alt_text = models.CharField(
         max_length=255, blank=True, verbose_name=_("description")
     )
-    document = models.FileField(
-        upload_to="",
-        verbose_name=_("document"),
-        help_text=_("The actual document file"),
-    )
+
     uploaded_at = models.DateTimeField(
         auto_now_add=True,
         verbose_name=_("uploaded date"),
@@ -64,7 +66,6 @@ class Document(models.Model):
         :return: The number of objects deleted and a dictionary with the number of deletions per object type.
         :rtype: tuple ( int, dict )
         """
-        self.document.delete()
         return super().delete(using=using, keep_parents=keep_parents)
 
     def __str__(self):
@@ -88,8 +89,9 @@ class Document(models.Model):
             "alt_text": self.alt_text,
             "file_type": self.type,
             "thumbnailPath": self.thumbnail_path(),
-            "path": self.physical_path,
+            "path": os.path.join(MEDIA_URL, self.physical_path),
             "uploadedAt": self.uploaded_at.strftime("%d/%m/%Y, %H:%M:%S"),
+            "isGlobal": self.region is None,
         }
 
     class Meta:

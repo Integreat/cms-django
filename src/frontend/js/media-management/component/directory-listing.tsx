@@ -7,10 +7,12 @@ import FileEntry from "./file-entry";
 interface Props {
   parentDirectory: number | null;
   apiEndpoints: MediaApiPaths;
+  refresh: number;
   setEditFile: (file: File) => void;
 }
 
 export interface File {
+  isGlobal: boolean;
   id: number;
   name: string;
   path: string;
@@ -22,6 +24,7 @@ export interface File {
 }
 
 export interface Directory {
+  isGlobal: any;
   id: number;
   name: string;
   numberOfEntries: number;
@@ -34,6 +37,7 @@ export default function DirectoryListing({
   parentDirectory,
   apiEndpoints,
   setEditFile,
+  refresh,
 }: Props) {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -60,10 +64,10 @@ export default function DirectoryListing({
       }
       setIsLoaded(true);
     })();
-  }, [parentDirectory]);
+  }, [parentDirectory, refresh]);
 
   return (
-    <div className="grid grid-cols-gallery">
+    <div className="grid grid-cols-gallery max-h-full overflow-y-auto">
       {items.map((item) =>
         item.type === "directory" ? (
           <Link href={`/listing/${item.id}`}>
