@@ -15,6 +15,12 @@
 
 @import "./upload_form.css";
 
+// Country flags
+$fp-prepend: true;
+$fp-enable-1x1: false;
+$fp-4x3-path: "flagpack/flags/4x3/";
+@import "flagpack/src/flagpack.scss";
+
 $list-bg-color: white;
 $list-border-color: lightgray;
 $hover-bg-color: darken($list-border-color, 20%);
