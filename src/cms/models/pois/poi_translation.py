@@ -4,8 +4,8 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
-from backend.settings import WEBAPP_URL
 from linkcheck.models import Link
+from backend.settings import WEBAPP_URL
 
 from .poi import POI
 from ..languages.language import Language

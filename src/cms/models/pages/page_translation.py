@@ -9,8 +9,9 @@ from django.urls import reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
-from backend.settings import BASE_URL
 from linkcheck.models import Link
+from backend.settings import BASE_URL
+
 from .abstract_base_page_translation import AbstractBasePageTranslation
 from .page import Page
 from ..languages.language import Language

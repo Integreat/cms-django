@@ -1,2 +1,1 @@
-from .linkcheck import LinkListView, LinkListRedirectBiew
-
+from .linkcheck import LinkListView, LinkListRedirectView

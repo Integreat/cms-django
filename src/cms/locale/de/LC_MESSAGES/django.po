@@ -233,7 +233,7 @@ msgid "Hidden"
 msgstr "Versteckt"
 
 #: constants/region_status.py:18 models/pages/page.py:202
-#: models/pages/page_translation.py:280 models/regions/region.py:388
+#: models/pages/page_translation.py:281 models/regions/region.py:388
 #: templates/pages/page_form.html:152
 #: templates/pages/page_tree_archived_node.html:13
 msgid "Archived"
@@ -444,12 +444,13 @@ msgstr "Kategorie"
 #: templates/imprint/imprint_form.html:105
 #: templates/imprint/imprint_revisions.html:40
 #: templates/imprint/imprint_sbs.html:58 templates/imprint/imprint_sbs.html:121
-#: templates/imprint/imprint_sbs.html:136 templates/pages/page_form.html:150
-#: templates/pages/page_revisions.html:44 templates/pages/page_sbs.html:65
-#: templates/pages/page_sbs.html:132 templates/pages/page_sbs.html:137
-#: templates/pages/page_tree.html:63 templates/pages/page_tree_archived.html:26
-#: templates/pois/poi_form.html:109 templates/pois/poi_list.html:41
-#: templates/pois/poi_list_archived.html:26
+#: templates/imprint/imprint_sbs.html:136
+#: templates/linkcheck/links_by_filter.html:37
+#: templates/pages/page_form.html:150 templates/pages/page_revisions.html:44
+#: templates/pages/page_sbs.html:65 templates/pages/page_sbs.html:132
+#: templates/pages/page_sbs.html:137 templates/pages/page_tree.html:63
+#: templates/pages/page_tree_archived.html:26 templates/pois/poi_form.html:109
+#: templates/pois/poi_list.html:41 templates/pois/poi_list_archived.html:26
 #: templates/regions/region_list.html:29
 msgid "Status"
 msgstr "Status"
@@ -673,16 +674,16 @@ msgid "URL parameter"
 msgstr "URL-Parameter"
 
 #: models/events/event_translation.py:33 models/offers/offer_template.py:23
-#: models/pages/page_translation.py:34 models/pois/poi_translation.py:28
+#: models/pages/page_translation.py:35 models/pois/poi_translation.py:28
 msgid "String identifier without spaces and special characters."
 msgstr "Bezeichner ohne Leerzeichen und Sonderzeichen."
 
 #: models/events/event_translation.py:34 models/offers/offer_template.py:24
-#: models/pages/page_translation.py:35 models/pois/poi_translation.py:29
+#: models/pages/page_translation.py:36 models/pois/poi_translation.py:29
 msgid "Unique per region and language."
 msgstr "Eindeutig pro Region und Sprache."
 
-#: models/events/event_translation.py:35 models/pages/page_translation.py:36
+#: models/events/event_translation.py:35 models/pages/page_translation.py:37
 #: models/pois/poi_translation.py:30
 msgid "Leave blank to generate unique parameter from title."
 msgstr ""
@@ -707,7 +708,7 @@ msgstr "Beschreibung"
 #: models/events/event_translation.py:51 models/feedback/feedback.py:28
 #: models/languages/language.py:106 models/languages/language_tree_node.py:23
 #: models/pages/imprint_page_translation.py:32
-#: models/pages/page_translation.py:49 models/pois/poi_translation.py:54
+#: models/pages/page_translation.py:50 models/pois/poi_translation.py:54
 #: models/push_notifications/push_notification_translation.py:28
 msgid "language"
 msgstr "Sprache"
@@ -748,7 +749,7 @@ msgstr ""
 
 #: models/events/event_translation.py:73
 #: models/pages/imprint_page_translation.py:39
-#: models/pages/page_translation.py:56 models/pois/poi_translation.py:84
+#: models/pages/page_translation.py:57 models/pois/poi_translation.py:84
 msgid "creator"
 msgstr "Ersteller"
 
@@ -918,7 +919,7 @@ msgstr "Angebotslisten-Feedback"
 
 #: models/feedback/page_feedback.py:18
 #: models/pages/abstract_base_page_translation.py:328
-#: models/pages/page_translation.py:286
+#: models/pages/page_translation.py:287
 msgid "page translation"
 msgstr "Seiten-Übersetzung"
 
@@ -1074,6 +1075,7 @@ msgid "thumbnail URL"
 msgstr "Vorschaubild-URL"
 
 #: models/offers/offer_template.py:31
+#: templates/linkcheck/links_by_filter.html:36
 #: templates/offer_templates/offer_template_list.html:24
 msgid "URL"
 msgstr "URL"
@@ -1123,7 +1125,7 @@ msgid "Whether or not the page is explicitly archived"
 msgstr "Ob die Seite explizit archiviert ist oder nicht"
 
 #: models/pages/abstract_base_page.py:142 models/pages/page.py:208
-#: models/pages/page_translation.py:43
+#: models/pages/page_translation.py:44
 msgid "page"
 msgstr "Seite"
 
@@ -1144,7 +1146,7 @@ msgid "version"
 msgstr "Version"
 
 #: models/pages/abstract_base_page_translation.py:330
-#: models/pages/page_translation.py:288
+#: models/pages/page_translation.py:289
 msgid "page translations"
 msgstr "Seiten-Übersetzungen"
 
@@ -1238,15 +1240,15 @@ msgstr ""
 "Dies erlaubt allen Mitgliedern der Organisation diese Seite zu bearbeiten "
 "und veröffentlichen"
 
-#: models/pages/page_translation.py:32
+#: models/pages/page_translation.py:33
 msgid "Page link"
 msgstr "Seitenlink"
 
-#: models/pages/page_translation.py:164
+#: models/pages/page_translation.py:165
 msgid "Live content"
 msgstr "Live-Inhalt"
 
-#: models/pages/page_translation.py:167
+#: models/pages/page_translation.py:168
 msgid "Empty"
 msgstr "Leer"
 
@@ -1694,7 +1696,7 @@ msgstr "Alle Orte"
 msgid "Create location"
 msgstr "Ort erstellen"
 
-#: templates/_base.html:168 templates/_base.html:250
+#: templates/_base.html:168 templates/_base.html:254
 msgid "Users"
 msgstr "Benutzer"
 
@@ -1707,7 +1709,7 @@ msgstr "Alle Benutzer"
 msgid "Create user"
 msgstr "Benutzer erstellen"
 
-#: templates/_base.html:183 templates/_base.html:274
+#: templates/_base.html:183 templates/_base.html:278
 #: templates/feedback/region_feedback_list.html:11
 msgid "Feedback"
 msgstr "Feedback"
@@ -1739,32 +1741,36 @@ msgstr "Alle Sprach-Knoten"
 msgid "Create language tree node"
 msgstr "Sprach-Knoten hinzufügen"
 
-#: templates/_base.html:228 templates/_base.html:279
+#: templates/_base.html:228 templates/analytics/_broken_links_widget.html:7
+msgid "Broken Link Checker"
+msgstr "Broken Link Checker"
+
+#: templates/_base.html:232 templates/_base.html:283
 #: templates/push_notifications/push_notification_form.html:77
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: templates/_base.html:233 templates/dashboard/admin_dashboard.html:8
+#: templates/_base.html:237 templates/dashboard/admin_dashboard.html:8
 msgid "Admin Dashboard"
 msgstr "Admin Dashboard"
 
-#: templates/_base.html:238
+#: templates/_base.html:242
 msgid "Regions"
 msgstr "Regionen"
 
-#: templates/_base.html:244
+#: templates/_base.html:248
 msgid "Languages"
 msgstr "Sprachen"
 
-#: templates/_base.html:256
+#: templates/_base.html:260
 msgid "Roles"
 msgstr "Rollen"
 
-#: templates/_base.html:262
+#: templates/_base.html:266
 msgid "Organizations"
 msgstr "Organisationen"
 
-#: templates/_base.html:268
+#: templates/_base.html:272
 msgid "Offer templates"
 msgstr "Angebots-Vorlagen"
 
@@ -1800,10 +1806,6 @@ msgstr "Öffnungszeiten"
 #: templates/_tinymce_config.html:29
 msgid "Hint"
 msgstr "Tipp"
-
-#: templates/analytics/_broken_links_widget.html:7
-msgid "Broken Link Checker"
-msgstr "Broken Link Checker"
 
 #: templates/analytics/_broken_links_widget.html:12
 msgid "The list below shows all detected errors related to links."
@@ -2758,6 +2760,58 @@ msgstr "Zuletzt aktualisiert"
 #: templates/languages/language_list.html:39
 msgid "No languages available yet."
 msgstr "Noch keine Sprachen vorhanden."
+
+#: templates/linkcheck/link_list_row.html:18
+msgid "Content type could not be recognized"
+msgstr "Quelle des Links konnte nicht zugeordnet werden"
+
+#: templates/linkcheck/links_by_filter.html:7
+msgid "Valid links"
+msgstr "Gültig Links"
+
+#: templates/linkcheck/links_by_filter.html:9
+msgid "Invalid links"
+msgstr "Ungültig Links"
+
+#: templates/linkcheck/links_by_filter.html:11
+msgid "Unchecked links"
+msgstr "Nicht geprüfte Links"
+
+#: templates/linkcheck/links_by_filter.html:13
+msgid "Ignored links"
+msgstr "Ignorierte Links"
+
+#: templates/linkcheck/links_by_filter.html:18
+msgid "Valid"
+msgstr "Gültig"
+
+#: templates/linkcheck/links_by_filter.html:22
+msgid "Invalid"
+msgstr "Ungültig"
+
+#: templates/linkcheck/links_by_filter.html:26
+msgid "Unchecked"
+msgstr "Nicht geprüft"
+
+#: templates/linkcheck/links_by_filter.html:30
+msgid "Ignored"
+msgstr "Ignoriert"
+
+#: templates/linkcheck/links_by_filter.html:38
+msgid "Link text"
+msgstr "Link Text"
+
+#: templates/linkcheck/links_by_filter.html:39
+msgid "Source"
+msgstr "Quelle"
+
+#: templates/linkcheck/links_by_filter.html:40
+msgid "Content type"
+msgstr "Inhaltstyp"
+
+#: templates/linkcheck/links_by_filter.html:49
+msgid "No links detected yet."
+msgstr "Es konnte keine Links gefunden werden."
 
 #: templates/media/media_form.html:6 templates/media/media_list.html:15
 msgid "Upload File"
@@ -4716,9 +4770,6 @@ msgstr ""
 
 #~ msgid "Hits (total)"
 #~ msgstr "Aufrufe (absolut)"
-
-#~ msgid "Connection to Matomo could not be established"
-#~ msgstr "Es konnte keine Verbindung zum Matomo hergestellt werden"
 
 #~ msgid ""
 #~ "There was an error during the establishment of a connection. Please check "

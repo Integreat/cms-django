@@ -223,10 +223,14 @@
 					</div>
 				</div>
 			{% endif %}
-	        <a href="{% url 'settings' region_slug=region.slug %}" {% if current_menu_item == 'region_settings' %}class="active"{% endif %}>
-	            <i data-feather="sliders"></i>
-		        {% trans 'Settings' %}
-	        </a>
+			<a href="{% url 'linkcheck_landing' region_slug=region.slug %}" {% if current_menu_item == 'linkcheck' %}class="active"{% endif %}>
+				<i data-feather="link"></i>
+				{% trans 'Broken Link Checker' %}
+			</a>
+			<a href="{% url 'settings' region_slug=region.slug %}" {% if current_menu_item == 'region_settings' %}class="active"{% endif %}>
+				<i data-feather="sliders"></i>
+				{% trans 'Settings' %}
+			</a>
 		{% else %}
 		    <a href="{% url 'admin_dashboard' %}" {% if current_menu_item == 'admin_dashboard' %}class="active"{% endif %}>
 			    <i data-feather="grid"></i>
