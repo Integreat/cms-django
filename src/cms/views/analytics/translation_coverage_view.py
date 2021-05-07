@@ -1,15 +1,15 @@
-from itertools import cycle
+import logging
 
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.shortcuts import render
-from django.utils.translation import ugettext as _
 
+from ...constants import translation_status
 from ...models import PageTranslation, Region
 from ...decorators import region_permission_required
 
-from ...constants import colors
+logger = logging.getLogger(__name__)
 
 
 @method_decorator(login_required, name="dispatch")
@@ -42,54 +42,68 @@ class TranslationCoverageView(TemplateView):
         """
 
         region = Region.get_current_region(request)
-        # total_number_pages = region.pages.count()
+        total_number_pages = region.pages.count()
 
-        chart_data = []
-        summary_data = []
-        total_words = 0
-        labels = [
-            _("Translations up-to-date"),
-            _("Currently in translation"),
-            _("Translations outdated"),
-            _("Translations missing"),
-        ]
-        color_cycle = cycle(colors.CHOICES)
+        translation_coverage_data = []
+        outdated_word_count = {}
 
         for language in region.languages:
+            # Get all page translation of this region and language
             page_translations = PageTranslation.get_translations(region, language)
-            page_translations_up_to_date = 0
-            page_translations_in_translation = 0
-            page_translations_outdated = 0
-            word_count_outdated = 0
-
-            for page_translation in page_translations:
-                if page_translation.is_up_to_date:
-                    page_translations_up_to_date += 1
-                elif page_translation.currently_in_translation:
-                    page_translations_in_translation += 1
-                elif page_translation.is_outdated:
-                    page_translations_outdated += 1
-                    word_count_outdated += len(page_translation.text.split())
-
-            chart_data.append(
+            # Get the QuerySet of translations which are currently not in translation (so either up-to-date or outdated)
+            currently_not_in_translation = page_translations.filter(
+                currently_in_translation=False
+            )
+            # Get a list of translations which are outdated
+            outdated_page_translations = [
+                translation
+                for translation in currently_not_in_translation
+                if translation.is_outdated
+            ]
+            # Count the words in the outdated translations
+            outdated_word_count[language] = sum(
+                len(translation.text.split())
+                for translation in outdated_page_translations
+            )
+            # Count the outdated translations
+            outdated_count = len(outdated_page_translations)
+            # Append the translation coverage data for this language
+            translation_coverage_data.append(
                 {
-                    "labels": [region.languages],
-                    "datasets": [
-                        {
-                            "label": labels[1],
-                            "borderColor": next(color_cycle),
-                            "data": "test",
-                        }
-                    ],
+                    # The number of pages which do not have a translation in this language
+                    translation_status.MISSING: (
+                        total_number_pages - page_translations.count()
+                    ),
+                    # The number of translations which are outdated
+                    translation_status.OUTDATED: outdated_count,
+                    # The number of translations which are currently being translated
+                    translation_status.IN_TRANSLATION: (
+                        page_translations.count() - currently_not_in_translation.count()
+                    ),
+                    # The number of up-to-date translations (neither missing, nor currently in translation, nor outdated)
+                    translation_status.UP_TO_DATE: (
+                        currently_not_in_translation.count() - outdated_count
+                    ),
                 }
             )
-            summary_data.append(
-                {
-                    "translated_name": language.translated_name,
-                    "word_count": word_count_outdated,
-                }
+            logger.debug(
+                "Coverage data for %r: %r", language, translation_coverage_data[-1]
             )
-            total_words += word_count_outdated
+
+        logger.debug("Outdated word count: %r", outdated_word_count)
+
+        # Assemble the ChartData in the format expected by ChartJS (one dataset for each translation status)
+        chart_data = {
+            "labels": [language.translated_name for language in region.languages],
+            "datasets": [
+                {
+                    "label": label,
+                    "backgroundColor": translation_status.COLORS[status],
+                    "data": [data[status] for data in translation_coverage_data],
+                }
+                for status, label in translation_status.CHOICES
+            ],
+        }
 
         return render(
             request,
@@ -97,7 +111,7 @@ class TranslationCoverageView(TemplateView):
             {
                 **self.base_context,
                 "coverage_data": chart_data,
-                "summary_data": summary_data,
-                "total_words": total_words,
+                "outdated_word_count": outdated_word_count,
+                "total_outdated_words": sum(outdated_word_count.values()),
             },
         )
