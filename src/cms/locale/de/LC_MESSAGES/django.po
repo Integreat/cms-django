@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-07 16:20+0000\n"
+"POT-Creation-Date: 2021-05-07 16:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -1837,6 +1837,7 @@ msgid "Translation Coverage"
 msgstr "Abdeckung der Übersetzungen"
 
 #: templates/analytics/translation_coverage.html:37
+#: views/analytics/translation_coverage_view.py:51
 msgid "Translations up-to-date"
 msgstr "Aktuelle Übersetzungen"
 
@@ -1853,14 +1854,17 @@ msgstr "Aktuelle Übersetzungen"
 #: templates/pages/page_tree_node.html:77
 #: templates/pages/page_tree_node.html:96 templates/pois/poi_form.html:54
 #: templates/pois/poi_form.html:83 templates/pois/poi_list_row.html:39
+#: views/analytics/translation_coverage_view.py:52
 msgid "Currently in translation"
 msgstr "Wird derzeit übersetzt"
 
 #: templates/analytics/translation_coverage.html:55
+#: views/analytics/translation_coverage_view.py:53
 msgid "Translations outdated"
 msgstr "Veraltete Übersetzungen"
 
 #: templates/analytics/translation_coverage.html:64
+#: views/analytics/translation_coverage_view.py:54
 msgid "Translations missing"
 msgstr "Fehlende Übersetzungen"
 

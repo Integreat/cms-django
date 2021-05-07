@@ -1,10 +1,15 @@
+from itertools import cycle
+
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.shortcuts import render
+from django.utils.translation import ugettext as _
 
 from ...models import PageTranslation, Region
 from ...decorators import region_permission_required
+
+from ...constants import colors
 
 
 @method_decorator(login_required, name="dispatch")
@@ -37,28 +42,62 @@ class TranslationCoverageView(TemplateView):
         """
 
         region = Region.get_current_region(request)
-        num_pages = region.pages.count()
-        languages = []
+        # total_number_pages = region.pages.count()
+
+        chart_data = []
+        summary_data = []
+        total_words = 0
+        labels = [
+            _("Translations up-to-date"),
+            _("Currently in translation"),
+            _("Translations outdated"),
+            _("Translations missing"),
+        ]
+        color_cycle = cycle(colors.CHOICES)
 
         for language in region.languages:
             page_translations = PageTranslation.get_translations(region, language)
-            languages.append(
+            page_translations_up_to_date = 0
+            page_translations_in_translation = 0
+            page_translations_outdated = 0
+            word_count_outdated = 0
+
+            for page_translation in page_translations:
+                if page_translation.is_up_to_date:
+                    page_translations_up_to_date += 1
+                elif page_translation.currently_in_translation:
+                    page_translations_in_translation += 1
+                elif page_translation.is_outdated:
+                    page_translations_outdated += 1
+                    word_count_outdated += len(page_translation.text.split())
+
+            chart_data.append(
                 {
-                    "translated_name": language.translated_name,
-                    "num_page_translations_up_to_date": len(
-                        [t for t in page_translations if t.is_up_to_date]
-                    ),
-                    "num_page_translations_currently_in_translation": len(
-                        [t for t in page_translations if t.currently_in_translation]
-                    ),
-                    "num_page_translations_outdated": len(
-                        [t for t in page_translations if t.is_outdated]
-                    ),
-                    "num_page_translations_missing": num_pages
-                    - page_translations.count(),
+                    "labels": [region.languages],
+                    "datasets": [
+                        {
+                            "label": labels[1],
+                            "borderColor": next(color_cycle),
+                            "data": "test",
+                        }
+                    ],
                 }
             )
+            summary_data.append(
+                {
+                    "translated_name": language.translated_name,
+                    "word_count": word_count_outdated,
+                }
+            )
+            total_words += word_count_outdated
 
         return render(
-            request, self.template_name, {**self.base_context, "languages": languages}
+            request,
+            self.template_name,
+            {
+                **self.base_context,
+                "coverage_data": chart_data,
+                "summary_data": summary_data,
+                "total_words": total_words,
+            },
         )
