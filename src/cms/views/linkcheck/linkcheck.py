@@ -45,7 +45,7 @@ class LinkListView(ListView):
         Finally filters by links state and counts the number links per group
 
         :return: The QuerySet of the filtered links
-        :rtype: ~django.db.models.query.QuerySet [ ~linkcheck.models.Link ]
+        :rtype: ~django.db.models.query.QuerySet
         """
         region_slug = self.kwargs.get("region_slug")
         link_filter = self.kwargs.get("link_filter")
