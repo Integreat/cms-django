@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-07 12:36+0000\n"
+"POT-Creation-Date: 2021-05-08 09:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Integreat <info@integreat-app.de>\n"
 "Language-Team: Integreat <info@integreat-app.de>\n"
@@ -2761,10 +2761,6 @@ msgstr "Zuletzt aktualisiert"
 msgid "No languages available yet."
 msgstr "Noch keine Sprachen vorhanden."
 
-#: templates/linkcheck/link_list_row.html:18
-msgid "Content type could not be recognized"
-msgstr "Quelle des Links konnte nicht zugeordnet werden"
-
 #: templates/linkcheck/links_by_filter.html:7
 msgid "Valid links"
 msgstr "Gültig Links"
@@ -4580,6 +4576,9 @@ msgid ""
 msgstr ""
 "Ein Benutzer muss entweder Mitarbeiter/Super-Administrator sein, oder "
 "mindestens einer Region zugewiesen sein."
+
+#~ msgid "Content type could not be recognized"
+#~ msgstr "Quelle des Links konnte nicht zugeordnet werden"
 
 #~ msgid "template"
 #~ msgstr "Vorlage"

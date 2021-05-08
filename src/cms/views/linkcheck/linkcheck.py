@@ -41,8 +41,8 @@ class LinkListView(ListView):
     def get_queryset(self):
         """
         First filters all links by region
-        Then annotates queryset by the content_type title
-        Finally filters by links state and counts the number links per group
+        Next filters by links state and counts the number of links per group
+        Finally annotates queryset by the content_type title
 
         :return: The QuerySet of the filtered links
         :rtype: ~django.db.models.query.QuerySet
@@ -53,14 +53,6 @@ class LinkListView(ListView):
             Q(page_translations__page__region__slug=region_slug)
             | Q(event_translations__event__region__slug=region_slug)
             | Q(poi_translations__poi__region__slug=region_slug)
-        )
-        page_translation = PageTranslation.objects.filter(id=OuterRef("object_id"))
-        event_translation = EventTranslation.objects.filter(id=OuterRef("object_id"))
-        poi_translation = POITranslation.objects.filter(id=OuterRef("object_id"))
-        qset = qset.annotate(
-            page_title=Subquery(page_translation.values("title")[:1]),
-            event_title=Subquery(event_translation.values("title")[:1]),
-            poi_title=Subquery(poi_translation.values("title")[:1]),
         )
         qset = qset.order_by("-url__last_checked")
         valid_links = qset.filter(ignore=False, url__status__exact=True)
@@ -83,7 +75,19 @@ class LinkListView(ListView):
             result = ignored_links
         else:
             result = invalid_links
-        return result
+        page_translation = PageTranslation.objects.filter(id=OuterRef("object_id"))
+        event_translation = EventTranslation.objects.filter(id=OuterRef("object_id"))
+        poi_translation = POITranslation.objects.filter(id=OuterRef("object_id"))
+        page_links = result.filter(content_type__model="pagetranslation").annotate(
+            title=Subquery(page_translation.values("title")[:1])
+        )
+        event_links = result.filter(content_type__model="eventtranslation").annotate(
+            title=Subquery(event_translation.values("title")[:1])
+        )
+        poi_links = result.filter(content_type__model="poitranslation").annotate(
+            title=Subquery(poi_translation.values("title")[:1])
+        )
+        return page_links.union(event_links, poi_links)
 
 
 class LinkListRedirectView(RedirectView):

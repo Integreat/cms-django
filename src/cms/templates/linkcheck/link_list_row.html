@@ -8,15 +8,7 @@
   </td>
   <td class="pr-2">{{ link.text }}</td>
   <td class="pr-2">
-    {% if link.content_type.model == "pagetranslation" %}
-      {{ link.page_title }}
-    {% elif link.content_type.model == "eventtranslation" %}
-      {{ link.event_title}}
-    {% elif link.content_type.model == "poitranslation" %}
-      {{ link.poi_title }}
-    {% else %}
-      {% trans 'Content type could not be recognized' %}
-    {% endif %}
+    {{ link.title }}
   </td>
   <td class="pr-4 min text-right">{{ link.content_type.name|title }}</td>
 </tr>
