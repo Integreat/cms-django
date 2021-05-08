@@ -498,6 +498,10 @@ msgstr ""
 "Diese Region besitzt bereits eine Standard-Sprache. Bitte geben Sie eine "
 "Quell-Sprache für diese Sprache ein."
 
+#: forms/pages/page_filter_form.py:13
+msgid "Translation status"
+msgstr "Übersetzungsstatus"
+
 #: forms/regions/region_form.py:25
 msgid "Do no import initial content"
 msgstr "Keine Inhalte übernehmen"
@@ -2135,14 +2139,14 @@ msgstr "Ganztägige Veranstaltungen"
 #: templates/events/_event_filter_form.html:64
 #: templates/feedback/_admin_feedback_filter_form.html:58
 #: templates/feedback/_region_feedback_filter_form.html:51
-#: templates/pages/_page_filter_form.html:17
+#: templates/pages/_page_filter_form.html:11
 msgid "Reset filter"
 msgstr "Filter zurücksetzen"
 
 #: templates/events/_event_filter_form.html:67
 #: templates/feedback/_admin_feedback_filter_form.html:61
 #: templates/feedback/_region_feedback_filter_form.html:53
-#: templates/pages/_page_filter_form.html:20
+#: templates/pages/_page_filter_form.html:14
 msgid "Apply filter"
 msgstr "Filter anwenden"
 
