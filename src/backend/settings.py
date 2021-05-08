@@ -68,6 +68,7 @@ TEST_BLOG_ID = 154
 
 #: URL to the Integreat Website
 WEBSITE_URL = "https://integreat-app.de"
+SITE_DOMAIN = WEBAPP_URL
 
 #: URLs to the Integreat blog
 BLOG_URLS = {
@@ -156,6 +157,7 @@ INSTALLED_APPS = [
     "filer",
     "mptt",
     "rules.apps.AutodiscoverRulesConfig",
+    "linkcheck",
 ]
 
 # The default Django Admin application will only be activated if the system is in debug mode.
